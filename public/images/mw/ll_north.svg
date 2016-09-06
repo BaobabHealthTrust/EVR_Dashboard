@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg:svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="100%"
+   height="100%"
+   viewBox="-10 -10 33.875 34.53125"
+   id="lilongwe"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="ll_north.svg">
+  <svg:defs
+     id="defs3796" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="7.9195959"
+     inkscape:cx="-22.069836"
+     inkscape:cy="6.8114179"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1535"
+     inkscape:window-height="876"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <svg:metadata
+     id="metadata3799">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </svg:metadata>
+  <svg>
+var g_element;
+var SVGDoc;
+var SVGRoot;
+//var HTMLSVG;
+function RunScript(LoadEvent) {
+	top.SVGsetDimension	= setDimension;
+	top.SVGsetScale		= setScale;
+	SVGDoc			= LoadEvent.target.ownerDocument;
+	//HTMLSVG			= top.document.getElementById(&quot;svgid&quot;);
+	g_element		= SVGDoc.getElementById(&quot;layer1&quot;);
+}
+
+function setDimension(w,h) {
+	SVGDoc.documentElement.setAttribute(&quot;width&quot;, w);
+	SVGDoc.documentElement.setAttribute(&quot;height&quot;, h);
+}
+
+function setScale(sw, sh) {
+	g_element.setAttribute(&quot;transform&quot;, &quot;scale(&quot; + sw + &quot; &quot; + sh +&quot;)&quot;);
+}</svg>
+  <svg:g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer"
+     transform="translate(-28.90625,-26.28125)">
+    <svg:path
+       style="fill:none;stroke:#000000;stroke-width:0.03;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 29.041886,27.21254 0,33.461303 33.587572,0 0,-25.253814 -3.914341,0.631346 -2.77792,-1.894036 L 54.16943,26.833733 53.285547,26.454926 39.017142,30.369267 33.84011,30.242998 29.7995,28.096424 z"
+       id="path2984"
+       inkscape:connector-curvature="0"
+       transform="translate(-10,-10)" />
+  </svg:g>
+</svg:svg>
