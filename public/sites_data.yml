@@ -1,0 +1,29 @@
+---
+suntche_1:
+  ping: true
+  ping_timestamp: '2016-09-07 15:00:03'
+  data:
+    new_births: []
+    new_deaths: []
+suntche2:
+  ping: true
+  ping_timestamp: '2016-09-07 15:00:04'
+  data:
+    new_births: []
+    new_deaths: []
+malenga:
+  ping: false
+  ping_timestamp: '2014-09-06 15:32:19'
+  data: {}
+kambira:
+  ping: true
+  ping_timestamp: '2016-09-07 15:00:25'
+  data:
+    new_births: []
+    new_deaths: []
+kanyoza:
+  ping: true
+  ping_timestamp: '2016-09-07 15:00:25'
+  data:
+    new_births: []
+    new_deaths: []

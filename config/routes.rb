@@ -6,6 +6,9 @@ Rails.application.routes.draw do
    root 'home#home'
 
    get "home/connection_status"
+   get "home/connection_dashboard"
+   get "home/connection_lastseen_status"
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

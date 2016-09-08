@@ -1,0 +1,256 @@
+
+  <title>EVR Dashboard</title>
+  <script src="data/coords.js"></script>
+  <script src="data/districts.js"></script>
+  <script src="data/sites.js"></script>
+  <script src="data/zones.js"></script>
+  <script src="data/district_offsets.js"></script>
+  <style>
+        body {
+          font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+        }
+        #legend{
+            width: 200px;
+            margin-right: 2px;
+            border-collapse: collapse;
+        }
+        #red, #green{
+            width: 50%;
+            padding: 12px;
+            border: 1px solid lightblue;
+        }
+        #red-txt, #green-txt{
+            width: 60%;
+            padding: 12px;
+            border: 1px solid lightblue;
+            text-align: right;
+        }
+        #red{
+            background: rgba(255,0,0,0.7);
+        }
+        #green{
+            background: rgba(0,200,0,0.7);
+        }
+
+        #list{
+            border-collapse: collapse;
+            box-shadow: 10px 10px 5px #888888;
+            overflow: hidden;
+        }
+        #list-parent{
+            box-shadow: 5px 5px 5px #888888;
+        }
+        #list td{
+            border: 1px solid lightgray;
+            padding: 13px;
+            text-align: left;
+        }
+          #district{
+              box-shadow: 5px 5px 5px #888888;
+          }
+          .circle{
+              border-radius: 50%;
+              float: right;
+              width: 15px;
+              height: 15px;
+          }
+          .offline{
+              background:rgba(255,0,0,0.7);
+          }
+          .online{
+              background: rgba(0,200,0,0.7);
+          }
+  </style>
+
+<div id="c_district"
+     style="width: 100%; height: calc(100vh - 20px); text-align: center; float: right; border: 1px solid #000;">
+    <div style="background: #2e6da4; box-shadow: 5px 5px 5px #888888; color: white; width: 99%;margin: auto; height: 5%;font-size: 1.5em; padding-top: 8px;border-bottom: 1px dotted lightgray">
+        Site Connection Status
+    </div>
+    <div style="position: absolute; top: 100px; right: 40%; border: 1px solid #ccc; padding: 5px; font-size: 22px;">
+        <table id="legend">
+            <tr>
+                <td id="red">&nbsp;</td>
+                <td id="red-txt">Down</td>
+            </tr>
+            <tr>
+                <td id="green">&nbsp;</td>
+                <td id="green-txt">Up</td>
+            </tr>
+        </table>
+    </div>
+
+        <div id="list-parent" style="width: 32%;position: absolute; right: 2%;  height: 85%; overflow: hidden; margin-top: 1.5%;float: right;">
+            <table id="list" style="width: 100%; font-size: 1.4em;">
+            </table>
+        </div>
+
+        <object id="district" type="image/svg+xml" data="images/mw/ll_north.svg"
+                  style="height: 87%; width: 65%;float: left; border: 1.5px solid #ccc;margin: 8px;margin-top: 1.5%;">
+
+        </object>
+
+        <div id="district_label"
+           style="position: absolute; top: 5px;  color: white; left: 20px; border: 1px solid #ccc; padding: 5px; font-size: 22px;">
+            Lilongwe
+        </div>
+    </div>
+
+<script>
+
+    connections = {};
+    durations = {};
+    var refPoints = [-9.6, -17.4, 33.05, 35.98];
+    var offsets = [10, 295, 10, 710];
+
+    for(var key in values['legend']){
+        __$(key + "-txt").innerHTML = values['legend'][key];
+    }
+
+    function latLon2Coord(lat, lon) {
+
+        var x, y;
+
+        x = ((offsets[1] - offsets[0]) * ((Math.abs(lon) - Math.abs(refPoints[2])) / (Math.abs(refPoints[3]) - Math.abs(refPoints[2])))) // + offsets[0];
+
+        y = ((offsets[3] - offsets[2]) * ((Math.abs(lat) - Math.abs(refPoints[0])) / (Math.abs(refPoints[1]) - Math.abs(refPoints[0])))) // + offsets[2];
+
+        return [x, y]
+
+    }
+
+    function insertSiteByOffset(x, y, color, id, district, village) {
+
+        var doc = __$("district").contentDocument;
+
+        var mw = doc.getElementById(district);
+
+        var target = districtOffsets[district];
+
+        var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+
+        circle.setAttribute("cx", (x - target.x));
+
+        circle.setAttribute("cy", (y - target.y));
+        var rad = parseInt(durations[village.replace(/\s/g, '_').toLowerCase()]);
+
+        var r = 0.75;
+        if(!connections[village.replace(/\s/g, '_').toLowerCase()]) {
+            if (rad <= 60) {
+                r = 0.75;
+            } else if (rad <= 60 * 24) {
+                r = 1.25;
+            } else if (rad <= 60 * 24 * 7) {
+                r = 1.75;
+            } else if (rad > 60 * 24 * 7) {
+                r = 2.25;
+            }
+        }
+        circle.setAttribute("r", (r));
+
+        circle.setAttribute("id", id);
+
+        circle.setAttribute("fill", color);
+
+        circle.setAttribute("stroke-width", 0.05);
+
+        circle.setAttribute("stroke", "rgba(0,0,0,0.7)");
+
+        circle.setAttribute("data-tooltip", village);
+
+        mw.appendChild(circle);
+    }
+
+    function loadSiteConnections(district){
+
+        jQuery.ajax({url: "/home/connection_status",
+            success: function(r){
+                connections = JSON.parse(r)[0];
+                durations = JSON.parse(r)[1];
+
+                loadDistrictSitesByOffsets("lilongwe");
+
+                jQuery.ajax({url: "/home/connection_lastseen_status",
+                    success: function(r){
+                        lastseen = JSON.parse(r);
+                        loadSites(lastseen, district);
+                    }
+                });
+            }
+        });
+
+
+    }
+
+    function loadDistrictSitesByOffsets(district) {
+
+        var target = sites_by_zones[district];
+
+        for (var i = 0; i < target.length; i++) {
+
+            var result = latLon2Coord(target[i]["latitude"], target[i]["longitude"])
+
+            var colors = ["rgba(255,0,0,0.7)", "rgba(0,200,0,0.7)", "rgba(0,0,200,0.7)"];
+
+            var vg = target[i]['village'].replace(/\s/g, '_');
+            if(connections[vg.toLowerCase()]) {
+                var pos = 1;
+            }else{
+                var pos = 0;
+            }
+
+            insertSiteByOffset(result[0], result[1], colors[pos], district + '_' + target[i]["facility_id"], district, target[i]['village']);
+
+        }
+
+    }
+
+    function loadSites(data, district){
+
+        for (var site_name in  data){
+            var tr = document.createElement("tr");
+            tr.id = site_name;
+            if(connections[site_name.replace(/\s/g, '_').toLowerCase()]){
+                tr.innerHTML = "<td id='site_name'>" + site_name + " <span class='circle online'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
+            }else{
+                tr.innerHTML = "<td id='site_name'>" + site_name + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
+            }
+
+            __$("list").appendChild(tr);
+        }
+
+        for (var i in  sites_by_zones[district]){
+
+            site_name = sites_by_zones[district][i]['village'];
+
+            if (__$(site_name)){
+                continue;
+            }
+
+            var tr = document.createElement("tr");
+            tr.id = site_name;
+
+            tr.innerHTML = "<td id='site_name'>"+ site_name + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>Offline</td>"
+            __$("list").appendChild(tr);
+        }
+    }
+
+    setTimeout(function () {
+
+       loadSiteConnections("lilongwe");
+
+    }, 500);
+
+    function __$(id){
+        return document.getElementById(id);
+    }
+
+    setTimeout(function(){
+        scrollInterval = window.setInterval(function () {
+            pageScroll(__$("list-parent"))
+        }, scrollDelay);
+    }, 5000);
+
+
+
+</script>

@@ -2,186 +2,79 @@
 <html>
 <head>
   <title>EVR Dashboard</title>
-  <script src="data/coords.js"></script>
-  <script src="data/districts.js"></script>
-  <script src="data/sites.js"></script>
-  <script src="data/zones.js"></script>
-  <script src="data/district_offsets.js"></script>
   <style>
-        body {
-          font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
-        }
-        #legend{
-            width: 200px;
-            margin-right: 10px;
-            border-collapse: collapse;
-        }
-        #red, #green{
-            width: 50%;
-            padding: 12px;
-            border: 1px solid lightblue;
-        }
-        #red-txt, #green-txt{
-            width: 60%;
-            padding: 12px;
-            border: 1px solid lightblue;
-            text-align: right;
-        }
-        #red{
-            background: rgba(255,0,0,0.7);
-        }
-        #green{
-            background: rgba(0,200,0,0.7);
-        }
+    #iframe{
+        width: 99%;
+        height: 97vh;
+        margin: 0px;;
+        border: 1px solid lightgray;
+        padding: 0px;
+    }
 
-        #list{
-            border-collapse: collapse;
-        }
-        #list td{
-            border: 1px solid lightgray;
-            padding: 13px;
-            text-align: left;
-        }
+          body{
+              padding: 0px;
+              margin: 0px;
+          }
+
   </style>
 </head>
 <body>
-<div id="c_district"
-     style="width: 100%; height: calc(100vh - 20px); text-align: center; float: right; border: 1px solid #000;">
-    <div style="width: 99%;margin: auto; height: 7%;font-size: 1.5em; padding-top: 8px;border-bottom: 1px dotted lightgray">
-        Site Connection Status
-    </div>
-    <div style="position: absolute; top: 100px; right: 20px; border: 1px solid #ccc; padding: 5px; font-size: 22px;">
-        <table id="legend">
-            <tr>
-                <td id="red">&nbsp;</td>
-                <td id="red-txt">Down</td>
-            </tr>
-            <tr>
-                <td id="green">&nbsp;</td>
-                <td id="green-txt">Up</td>
-            </tr>
-        </table>
-    </div>
 
-        <div style="width: 27%;height: 87vh; padding-top: 7%;float: left;">
-            <table id="list" style="width: 100%; font-size: 1.4em;">
-              <tr><td>Suntche 2</td><td> 3hrs ago </td></tr>
-              <tr><td>Site 2</td><td>2 hours ago</td></tr>
-              <tr><td>Site 3</td><td>1 hr ago</td></tr>
-              <tr><td>Site 4</td><td>Row 1</td></tr>
-              <tr><td>Site 5</td><td>Row 1</td></tr>
-              <tr><td>Site 6</td><td>Row 1</td></tr>
-            </table>
-        </div>
+<div id="iframe" src="/home/connection_dashboard">
 
-        <object id="district" type="image/svg+xml" data="images/mw/ll_north.svg"
-                  style="height: 87%; width: 70%;float: right; border: 1.5px solid #ccc;margin: 8px;">
+</div>
 
-        </object>
-
-        <div id="district_label"
-           style="position: absolute; top: 20px; right: 20px; border: 1px solid #ccc; padding: 5px; font-size: 22px;">
-            Lilongwe
-        </div>
-    </div>
-
-<style>
-    #district{
-        border: none;
-    }
-</style>
+</body>
 
 <script>
-    connections = {};
-    var refPoints = [-9.6, -17.4, 33.05, 35.98];
-    var offsets = [10, 295, 10, 710];
 
-    function __$(id) {
-        return document.getElementById(id);
-    }
+  var curIndex = -1;
 
-    function latLon2Coord(lat, lon) {
+  dashboard = [
+      {
+          'title' : 'Site Connection Status',
+          'src' : '/home/connection_dashboard',
+          'legend' : {
+              'red' : 'Down',
+              'green' : 'Up'
+          }
+       }
+  ]
 
-        var x, y;
+  var length = dashboard.length;
 
-        x = ((offsets[1] - offsets[0]) * ((Math.abs(lon) - Math.abs(refPoints[2])) / (Math.abs(refPoints[3]) - Math.abs(refPoints[2])))) // + offsets[0];
+  function __$(id){
+      return document.getElementById(id);
+  }
+  function rotate(waitPeriod){
 
-        y = ((offsets[3] - offsets[2]) * ((Math.abs(lat) - Math.abs(refPoints[0])) / (Math.abs(refPoints[1]) - Math.abs(refPoints[0])))) // + offsets[2];
+      for(var i in dashboard){
 
-        return [x, y]
+          values = dashboard[i];
 
-    }
+          setTimeout(function(){
+              if (dashboard[curIndex + 1]){
+                  curIndex += 1;
+              }else{
+                  curIndex = 0;
+              }
 
-    function insertSiteByOffset(x, y, color, id, district, village) {
+              scrollDelay = 10;
 
-        var doc = __$("district").contentDocument;
+              $("#iframe").load(dashboard[curIndex]['src']);
 
-        var mw = doc.getElementById(district);
+          }, waitPeriod);
 
-        var target = districtOffsets[district];
+      }
+  }
 
-        var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  rotate(100);
 
-        circle.setAttribute("cx", (x - target.x));
+  var loadInterval = setInterval(function(){
+      window.clearInterval(scrollInterval);
+      rotate(100);
+  }, 120000);
 
-        circle.setAttribute("cy", (y - target.y));
-
-        var r = Math.random();
-
-        circle.setAttribute("r", (0.2 + (r)));
-
-        circle.setAttribute("id", id);
-
-        circle.setAttribute("fill", color);
-
-        circle.setAttribute("stroke-width", 0.05);
-
-        circle.setAttribute("stroke", "rgba(0,0,0,0.7)");
-
-        circle.setAttribute("data-tooltip", village);
-
-        mw.appendChild(circle);
-    }
-
-    function loadSiteConnections(district){
-
-        jQuery.ajax({url: "/home/connection_status",
-            success: function(r){
-                connections = JSON.parse(r);
-                loadDistrictSitesByOffsets("lilongwe");
-            }
-        })
-    }
-
-    function loadDistrictSitesByOffsets(district) {
-
-        var target = sites_by_zones[district];
-
-        for (var i = 0; i < target.length; i++) {
-
-            var result = latLon2Coord(target[i]["latitude"], target[i]["longitude"])
-
-            var colors = ["rgba(255,0,0,0.7)", "rgba(0,200,0,0.7)", "rgba(0,0,200,0.7)"];
-
-            var vg = target[i]['village'].replace(/\s/g, '_');
-            if(connections[vg.toLowerCase()]) {
-                var pos = 1;
-            }else{
-                pos = 0;
-            }
-
-            insertSiteByOffset(result[0], result[1], colors[pos], district + '_' + target[i]["facility_id"], district, target[i]['village']);
-
-        }
-
-    }
-
-    setTimeout(function () {
-
-       loadSiteConnections("lilongwe");
-
-    }, 500);
 
 </script>
-</body>
 </html>
