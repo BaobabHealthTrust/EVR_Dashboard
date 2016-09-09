@@ -50,7 +50,7 @@ class HomeController < ApplicationController
         last_seen = "#{sec_diff} sec ago"
       end
 
-      connections["#{site.humanize}"] = last_seen
+      connections["#{site}"] = last_seen
     end
 
     render :text => connections.to_json

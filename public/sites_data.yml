@@ -1,29 +1,15 @@
 ---
-suntche_1:
-  ping: true
-  ping_timestamp: '2016-09-07 15:00:03'
-  data:
-    new_births: []
-    new_deaths: []
-suntche2:
-  ping: true
-  ping_timestamp: '2016-09-07 15:00:04'
-  data:
-    new_births: []
-    new_deaths: []
-malenga:
+lilongwe__mtema__kanyoza:
   ping: false
-  ping_timestamp: '2014-09-06 15:32:19'
-  data: {}
-kambira:
-  ping: true
-  ping_timestamp: '2016-09-07 15:00:25'
-  data:
-    new_births: []
-    new_deaths: []
-kanyoza:
-  ping: true
-  ping_timestamp: '2016-09-07 15:00:25'
-  data:
-    new_births: []
-    new_deaths: []
+  ping_timestamp: '2016-09-08 19:58:31'
+  new_births: 0
+  births: 0
+  new_deaths: 0
+  deaths: 0
+lilongwe__mtema__kambira:
+  ping: false
+  ping_timestamp: '2016-09-08 15:04:58'
+  new_births: 0
+  births: 0
+  new_deaths: 0
+  deaths: 0

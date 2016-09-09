@@ -98,6 +98,10 @@
 
 <script>
 
+    String.prototype.capitalize = function() {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    }
+
     connections = {};
     durations = {};
     var refPoints = [-9.6, -17.4, 33.05, 35.98];
@@ -146,6 +150,7 @@
                 r = 2.25;
             }
         }
+
         circle.setAttribute("r", (r));
 
         circle.setAttribute("id", id);
@@ -154,7 +159,7 @@
 
         circle.setAttribute("stroke-width", 0.05);
 
-        circle.setAttribute("stroke", "rgba(0,0,0,0.7)");
+        circle.setAttribute("stroke", "rgba(0,0,0,0.8)");
 
         circle.setAttribute("data-tooltip", village);
 
@@ -192,14 +197,15 @@
 
             var colors = ["rgba(255,0,0,0.7)", "rgba(0,200,0,0.7)", "rgba(0,0,200,0.7)"];
 
-            var vg = target[i]['village'].replace(/\s/g, '_');
-            if(connections[vg.toLowerCase()]) {
+            var vg = district.toLowerCase().replace(/\s/g, '_') + "__mtema__" +target[i]['village'].replace(/\s/g, '_').toLowerCase();
+
+            if(connections[vg]) {
                 var pos = 1;
             }else{
                 var pos = 0;
             }
 
-            insertSiteByOffset(result[0], result[1], colors[pos], district + '_' + target[i]["facility_id"], district, target[i]['village']);
+            insertSiteByOffset(result[0], result[1], colors[pos], district + '_' + target[i]["facility_id"], district, vg);
 
         }
 
@@ -210,10 +216,15 @@
         for (var site_name in  data){
             var tr = document.createElement("tr");
             tr.id = site_name;
+
+            var site_village_name = site_name.split(/\__/);
+            site_village_name =  site_village_name[ site_village_name.length - 1];
+
             if(connections[site_name.replace(/\s/g, '_').toLowerCase()]){
-                tr.innerHTML = "<td id='site_name'>" + site_name + " <span class='circle online'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
+
+                tr.innerHTML = "<td id='site_name'>" +site_village_name.capitalize() + " <span class='circle online'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
             }else{
-                tr.innerHTML = "<td id='site_name'>" + site_name + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
+                tr.innerHTML = "<td id='site_name'>" + site_village_name.capitalize() + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
             }
 
             __$("list").appendChild(tr);
@@ -229,8 +240,10 @@
 
             var tr = document.createElement("tr");
             tr.id = site_name;
+            var site_village_name = site_name.split(/\__/);
+            site_village_name =  site_village_name[ site_village_name.length - 1];
 
-            tr.innerHTML = "<td id='site_name'>"+ site_name + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>Offline</td>"
+            tr.innerHTML = "<td id='site_name'>"+  site_village_name.capitalize() + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>Offline</td>"
             __$("list").appendChild(tr);
         }
     }
