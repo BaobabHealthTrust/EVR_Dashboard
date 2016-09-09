@@ -1,0 +1,7 @@
+development:
+ evr_server: http://localhost:11000
+ pull_interval_minutes: 1
+
+production:
+ evr_server: http://localhost:11000
+ pull_interval_minutes: 1
