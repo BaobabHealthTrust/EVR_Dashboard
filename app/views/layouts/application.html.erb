@@ -17,6 +17,8 @@
 
       var scrollDelay = 5;
 
+			var values = {};
+
 
       function pageScroll(node) {
 
@@ -43,6 +45,27 @@
 
           }
       }
+
+		dashboard = [
+				  {
+				      'title' : 'Site Connection Status',
+				      'src' : '/home/connection_dashboard',
+				      'legend' : {
+				          'red' : 'Down',
+				          'green' : 'Up'
+				      }
+				   },
+					{
+				      'title' : 'News Reading Status',
+				      'src' : '/home/news_dashboard',
+				      'legend' : {
+				          'green' : 'Read in 48 hrs',
+									'yellow' : 'Not read in 48 hrs',
+				          'red' : 'Not read in 3 days'
+				      }
+				   }
+			]
+
 
   </script>
 </head>

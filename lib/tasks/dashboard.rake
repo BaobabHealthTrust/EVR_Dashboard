@@ -15,7 +15,8 @@ namespace :dashboard do
     online = rst['online']
 
     online.each do |site, lastseen|
-      puts "#{site}: #{lastseen}"
+      puts "EVR #{site}: #{lastseen}"
+
       result["#{site}"] = {} if result["#{site}"].blank?
       result["#{site}"]["ping"] = interval >= (Time.now - lastseen.to_time)
       result["#{site}"]["ping_timestamp"] = lastseen
@@ -29,6 +30,15 @@ namespace :dashboard do
       new_deaths = deaths - (result["#{site}"]["deaths"].to_i rescue 0)
       result["#{site}"]["new_deaths"] = new_deaths
       result["#{site}"]["deaths"] = deaths
+    end
+	
+    news_online = rst['news_online']
+    news_online.each do |site, lastseen|
+      puts "EVR #{site}: #{lastseen}"
+      result["#{site}"] = {} if result["#{site}"].blank?
+
+			result["#{site}"]["news_ping"] = interval >= (Time.now - lastseen.to_time)
+      result["#{site}"]["news_ping_timestamp"] = lastseen
     end
 
     file = File.open("#{Rails.root}/public/sites_data.yml", "w")

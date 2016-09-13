@@ -28,52 +28,33 @@
 
 <script>
 
-  var curIndex = -1;
-
-  dashboard = [
-      {
-          'title' : 'Site Connection Status',
-          'src' : '/home/connection_dashboard',
-          'legend' : {
-              'red' : 'Down',
-              'green' : 'Up'
-          }
-       }
-  ]
-
-  var length = dashboard.length;
-
   function __$(id){
       return document.getElementById(id);
   }
-  function rotate(waitPeriod){
 
-      for(var i in dashboard){
+	index = -1;
 
-          values = dashboard[i];
+  function rotate(){
 
-          setTimeout(function(){
-              if (dashboard[curIndex + 1]){
-                  curIndex += 1;
-              }else{
-                  curIndex = 0;
-              }
+          if (dashboard[index + 1]){
+              	index += 1;
+          }else{
+              	index = 0;
+          }
 
-              scrollDelay = 10;
+          values = dashboard[index];
 
-              $("#iframe").load(dashboard[curIndex]['src']);
+          $("#iframe").load(dashboard[index]['src']);
+ 	}
 
-          }, waitPeriod);
-
-      }
-  }
-
-  rotate(100);
+setTimeout(function(){
+  rotate();
 
   var loadInterval = setInterval(function(){
       window.clearInterval(scrollInterval);
-      rotate(100);
+      rotate();
   }, 20000);
+}, 200);
 
 
 </script>

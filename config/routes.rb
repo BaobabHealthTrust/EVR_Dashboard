@@ -7,8 +7,13 @@ Rails.application.routes.draw do
 
    get "home/connection_status"
    get "home/connection_dashboard"
+   get "home/news_dashboard"
+   get "home/news_data"
+   get "home/census_dashboard"
+   get "home/census_data"
+	 get "home/births_deaths_stats"
    get "home/connection_lastseen_status"
-
+   get "home/connection_lastseennews_status"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
