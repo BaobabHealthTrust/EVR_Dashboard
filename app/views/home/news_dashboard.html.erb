@@ -1,0 +1,270 @@
+
+  <title>EVR Dashboard</title>
+  <script src="data/coords.js"></script>
+  <script src="data/districts.js"></script>
+  <script src="data/sites.js"></script>
+  <script src="data/zones.js"></script>
+  <script src="data/district_offsets.js"></script>
+  <style>
+        body {
+          font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+        }
+        #legend{
+            width: 300px;
+            margin-right: 2px;
+            border-collapse: collapse;
+        }
+        #red, #green, #yellow{
+            width: 35%;
+            padding: 12px;
+            border: 1px solid lightblue;
+        }
+        #red-txt, #green-txt, #yellow-txt{
+            width: 65%;
+            padding: 8px;
+            border: 1px solid lightblue;
+            text-align: right;
+        }
+        #red{
+            background: rgba(255,0,0,0.7);
+        }
+        #green{
+            background: rgba(0,200,0,0.7);
+        }
+
+				#yellow{
+            background: rgba(200,200,0,0.7);
+        }
+
+        #list{
+            border-collapse: collapse;
+            box-shadow: 10px 10px 5px #888888;
+            overflow: hidden;
+        }
+        #list-parent{
+            box-shadow: 5px 5px 5px #888888;
+        }
+        #list td{
+            border: 1px solid lightgray;
+            padding: 13px;
+            text-align: left;
+        }
+          #district{
+              box-shadow: 5px 5px 5px #888888;
+          }
+          .circle{
+              border-radius: 50%;
+              float: right;
+              width: 15px;
+              height: 15px;
+          }
+          .offline{
+              background:rgba(255,0,0,0.7);
+          }
+          .online{
+              background: rgba(0,200,0,0.7);
+          }
+				#births, #deaths{
+					font-size: 1.7em;
+					text-align: center;
+					vertical-align: middle;
+				}
+				#births-txt, #deaths-txt{
+					text-align: center;
+					border-bottom: 1px dotted gray;
+				}
+				#deaths-txt{
+          box-shadow: 4px 4px 4px rgba(255,0,0,0.7);
+				}
+				#births-txt{
+          box-shadow:	4px 4px 4px rgba(0,255,0,0.7);
+				}
+				.card{
+					text-align: center;
+					border-bottom: 1px dotted lightgray
+				}
+   </style>
+
+<div id="c_district"
+     style="width: 100%; height: calc(100vh - 20px); text-align: center; float: right; border: 1px solid #000;">
+    <div id="title" style="background: #2e6da4; box-shadow: 5px 5px 5px #888888; color: white; width: 99%;margin: auto; height: 5%;font-size: 1.5em; padding-top: 8px;border-bottom: 1px dotted lightgray">
+        News Reading
+    </div>
+    <div style="position: absolute; top: 10vh; right: 28%; border: 1px solid #ccc; padding: 5px; font-size: 22px;">
+        <table id="legend">
+            <tr>
+                <td id="red" style=''>&nbsp;</td>
+                <td id="red-txt">Not read in 3 days</td>
+            </tr>
+						<tr>
+                <td id="yellow">&nbsp;</td>
+                <td id="yellow-txt">Not read in 48 hrs</td>
+            </tr>
+
+            <tr>
+                <td id="green">&nbsp;</td>
+                <td id="green-txt">Read in 48 hrs</td>
+            </tr>
+        </table>
+    </div>
+
+        <div id="list-parent" style="width: 24%;position: absolute; right: 2%;  height: 68%; overflow: hidden; margin-top: 6%;float: right;">
+            <table id="list" style="width: 100%; font-size: 1.4em;">
+								<tr>
+									<td id="births" style="height: 250px;width: 100%;">
+										<div class="card" style="width: 100%">Births Today</div> 
+										<div id="births-txt" style="width: 100%; padding-top:50px;font-size: 2em;">&nbsp;</div>
+									</td>
+								</tr>
+								<tr>
+									<td id="deaths"style="height: 250px;width: 100%;">
+										<div class="card" style="width: 100%">Deaths Today</div> 
+										<div id="deaths-txt" style="width: 100%; padding-top:50px;font-size: 2em;">&nbsp;</div>
+									</td>
+								</tr>
+            </table>
+        </div>
+
+        <object id="district" type="image/svg+xml" data="images/mw/ll_north.svg"
+                  style="height: 87%; width: 73%;float: left; border: 1.5px solid #ccc;margin: 8px;margin-top: 1.5%;">
+
+        </object>
+
+        <div id="district_label"
+           style="position: absolute; top: 5px;  color: white; left: 20px; border: 1px solid #ccc; padding: 5px; font-size: 22px;">
+            Lilongwe
+        </div>
+    </div>
+
+<script>
+
+    String.prototype.capitalize = function() {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    }
+
+    connections = {};
+    durations = {};
+    var refPoints = [-9.6, -17.4, 33.05, 35.98];
+    var offsets = [10, 295, 10, 710];
+
+    for(var key in values['legend']){
+        __$(key + "-txt").innerHTML = values['legend'][key];
+    }
+
+    function latLon2Coord(lat, lon) {
+
+        var x, y;
+
+        x = ((offsets[1] - offsets[0]) * ((Math.abs(lon) - Math.abs(refPoints[2])) / (Math.abs(refPoints[3]) - Math.abs(refPoints[2])))) // + offsets[0];
+
+        y = ((offsets[3] - offsets[2]) * ((Math.abs(lat) - Math.abs(refPoints[0])) / (Math.abs(refPoints[1]) - Math.abs(refPoints[0])))) // + offsets[2];
+
+        return [x, y]
+
+    }
+
+    function insertSiteByOffset(x, y, color, id, district, village) {
+
+        var doc = __$("district").contentDocument;
+
+        var mw = doc.getElementById(district);
+
+        var target = districtOffsets[district];
+
+        var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+
+        circle.setAttribute("cx", (x - target.x));
+
+        circle.setAttribute("cy", (y - target.y));
+        var rad = parseInt(durations[village.replace(/\s/g, '_').toLowerCase()]);
+
+        var r = 0.75;
+        if(!connections[village.replace(/\s/g, '_').toLowerCase()]) {
+            if (rad <= 60) {
+                r = 0.75;
+            } else if (rad <= 60 * 24) {
+                r = 1.25;
+            } else if (rad <= 60 * 24 * 7) {
+                r = 1.75;
+            } else if (rad > 60 * 24 * 7) {
+                r = 2.25;
+            }
+        }
+
+        circle.setAttribute("r", (r));
+
+        circle.setAttribute("id", id);
+
+        circle.setAttribute("fill", color);
+
+        circle.setAttribute("stroke-width", 0.05);
+
+        circle.setAttribute("stroke", "rgba(0,0,0,0.8)");
+
+        circle.setAttribute("data-tooltip", village);
+
+        mw.appendChild(circle);
+    }
+
+    function loadSiteConnections(district){
+
+        jQuery.ajax({url: "/home/connection_status?prefix=news_",
+            success: function(r){
+                connections = JSON.parse(r)[0];
+                durations = JSON.parse(r)[1];
+								jQuery.ajax({url: "/home/connection_lastseennews_status",
+                    success: function(r){
+                        lastseen = JSON.parse(r);
+
+												loadDistrictSitesByOffsets("lilongwe", lastseen);
+
+												jQuery.ajax({url: "/home/births_deaths_stats",
+								            success: function(r){
+								                stats = JSON.parse(r);  
+
+																if(Object.keys(stats).length > 0){
+																	__$("births-txt").innerHTML = stats["births"];
+																	__$("deaths-txt").innerHTML = stats["deaths"]
+																}                      
+								            }
+								        });
+                    }
+                });
+
+              
+            }
+        });
+    }
+
+    function loadDistrictSitesByOffsets(district, data) {
+
+        var target = sites_by_zones[district];
+
+        for (var i = 0; i < target.length; i++) {
+
+            var result = latLon2Coord(target[i]["latitude"], target[i]["longitude"])
+
+            var colors = ["rgba(255,0,0,0.7)", "rgba(200,200,0,0.7)", "rgba(0,200,0,0.7)"];
+
+            var vg = district.toLowerCase().replace(/\s/g, '_') + "__mtema__" +target[i]['village'].replace(/\s/g, '_').toLowerCase();
+
+            var pos = parseInt(data[vg]);
+						if (!colors[pos]){pos = 0};
+
+            insertSiteByOffset(result[0], result[1], colors[pos], district + '_' + target[i]["facility_id"], district, vg);
+
+        }
+
+    }
+
+    setTimeout(function () {
+
+       loadSiteConnections("lilongwe");
+
+    }, 500);
+
+    function __$(id){
+        return document.getElementById(id);
+    }
+
+</script>
