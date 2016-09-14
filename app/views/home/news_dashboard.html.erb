@@ -174,7 +174,6 @@
         var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
 
         circle.setAttribute("cx", (x - target.x));
-
         circle.setAttribute("cy", (y - target.y));
         var rad = parseInt(durations[village.replace(/\s/g, '_').toLowerCase()]);
 
@@ -192,18 +191,21 @@
         }
 
         circle.setAttribute("r", (r));
-
         circle.setAttribute("id", id);
-
         circle.setAttribute("fill", color);
-
         circle.setAttribute("stroke-width", 0.05);
-
         circle.setAttribute("stroke", "rgba(0,0,0,0.8)");
-
         circle.setAttribute("data-tooltip", village);
-
         mw.appendChild(circle);
+
+				var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
+				svgimg.setAttribute('height','50');
+				svgimg.setAttribute('width','50');
+				svgimg.setAttribute('id', (id +'-inner'));
+				svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href','images/pin.svg');
+				svgimg.setAttribute('x',0);
+				svgimg.setAttribute('y',0);
+				mw.appendChild(svgimg);
     }
 
     function loadSiteConnections(district){
@@ -251,8 +253,7 @@
             var pos = parseInt(data[vg]);
 						if (!colors[pos]){pos = 0};
 
-            insertSiteByOffset(result[0], result[1], colors[pos], district + '_' + target[i]["facility_id"], district, vg);
-
+            insertSiteByOffset(result[0], result[1], colors[pos], district + '_' + target[i]["facility_id"], district, vg);						
         }
 
     }
