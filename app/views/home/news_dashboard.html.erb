@@ -190,22 +190,58 @@
             }
         }
 
-        circle.setAttribute("r", (r));
+        circle.setAttribute("r", (0.8*r));
         circle.setAttribute("id", id);
         circle.setAttribute("fill", color);
         circle.setAttribute("stroke-width", 0.05);
         circle.setAttribute("stroke", "rgba(0,0,0,0.8)");
         circle.setAttribute("data-tooltip", village);
         mw.appendChild(circle);
+    }
 
-				var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
-				svgimg.setAttribute('height','50');
-				svgimg.setAttribute('width','50');
-				svgimg.setAttribute('id', (id +'-inner'));
-				svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href','images/pin.svg');
-				svgimg.setAttribute('x',0);
-				svgimg.setAttribute('y',0);
-				mw.appendChild(svgimg);
+
+    function insertSiteMarkerByOffset(x, y, color, id, district, village, show) {
+        var visible = "hidden";
+        if(show){
+            visible = "visible";
+        }
+        var doc = __$("district").contentDocument;
+        var mw = doc.getElementById(district);
+        var target = districtOffsets[district];
+
+        var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
+        svgimg.setAttribute('height','2');
+        svgimg.setAttribute('width','2');
+        svgimg.setAttribute('id', ("pin-" + id));
+        svgimg.setAttribute("visibility", visible);
+        svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href','pin-blue.svg');
+        svgimg.setAttribute('x',(x - 1.02*target.x));
+        svgimg.setAttribute('y',(y - 1.005*target.y));
+        mw.appendChild(svgimg);
+    }
+
+
+    function loadDistrictSitesMarkerByOffsets(district, data, births) {
+        var target = sites_by_zones[district];
+
+        for (var i = 0; i < target.length; i++) {
+
+            var result = latLon2Coord(target[i]["latitude"], target[i]["longitude"])
+
+            var colors = ["rgba(255,0,0,0.7)", "rgba(0,200,0,0.7)", "rgba(0,0,200,0.7)"];
+
+            var vg = district.toLowerCase().replace(/\s/g, '_') + "__mtema__" +target[i]['village'].replace(/\s/g, '_').toLowerCase();
+
+            if(data[vg]) {
+                var pos = 1;
+            }else{
+                var pos = 0;
+            }
+
+            insertSiteMarkerByOffset(result[0], result[1], colors[pos], district + '_' + target[i]["facility_id"], district, vg, births[vg]);
+
+        }
+
     }
 
     function loadSiteConnections(district){
@@ -214,22 +250,28 @@
             success: function(r){
                 connections = JSON.parse(r)[0];
                 durations = JSON.parse(r)[1];
-								jQuery.ajax({url: "/home/connection_lastseennews_status",
+                jQuery.ajax({url: "/home/connection_lastseennews_status",
                     success: function(r){
-                        lastseen = JSON.parse(r);
+                        r = JSON.parse(r);
+                        lastseen = r[0];
+                        births = r[1];
+                        new_births = r[2];
+                        deaths = r[3];
+                        new_deaths = r[4];
 
-												loadDistrictSitesByOffsets("lilongwe", lastseen);
+                        loadDistrictSitesByOffsets("lilongwe", lastseen);
+                        loadDistrictSitesMarkerByOffsets("lilongwe", lastseen, births);
 
-												jQuery.ajax({url: "/home/births_deaths_stats",
-								            success: function(r){
-								                stats = JSON.parse(r);  
+                        jQuery.ajax({url: "/home/births_deaths_stats",
+                        success: function(r){
+                            stats = JSON.parse(r);
 
-																if(Object.keys(stats).length > 0){
-																	__$("births-txt").innerHTML = stats["births"];
-																	__$("deaths-txt").innerHTML = stats["deaths"]
-																}                      
-								            }
-								        });
+                            if(Object.keys(stats).length > 0){
+                                __$("births-txt").innerHTML = stats["births"];
+                                __$("deaths-txt").innerHTML = stats["deaths"];
+                            }
+                    }
+                });
                     }
                 });
 
@@ -249,9 +291,8 @@
             var colors = ["rgba(255,0,0,0.7)", "rgba(200,200,0,0.7)", "rgba(0,200,0,0.7)"];
 
             var vg = district.toLowerCase().replace(/\s/g, '_') + "__mtema__" +target[i]['village'].replace(/\s/g, '_').toLowerCase();
-
             var pos = parseInt(data[vg]);
-						if (!colors[pos]){pos = 0};
+            if (!colors[pos]){pos = 0};
 
             insertSiteByOffset(result[0], result[1], colors[pos], district + '_' + target[i]["facility_id"], district, vg);						
         }

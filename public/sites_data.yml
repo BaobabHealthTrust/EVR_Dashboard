@@ -1,13 +1,15 @@
 ---
 lilongwe__mtema__kanyoza:
   ping: true
-  ping_timestamp: '2016-09-14 09:03:25'
+  ping_timestamp: '2016-09-15 15:13:17'
   new_births: 0
-  births: 0
+  births: 1
   new_deaths: 0
-  deaths: 0
+  deaths: 1
   news_ping: false
   news_ping_timestamp: '2016-09-13 14:30:30'
+  new_count: 0
+  count: 4
 lilongwe__mtema__kambira:
   ping: false
   ping_timestamp: '2016-09-08 15:04:58'
@@ -15,3 +17,60 @@ lilongwe__mtema__kambira:
   births: 0
   new_deaths: 0
   deaths: 0
+lilongwe__chiseka__menya:
+  new_count: 0
+  count: 5
+lilongwe__chimutu__makwandu:
+  new_count: 0
+  count: 11
+lilongwe__kanyoza__mtema:
+  new_count: 0
+  count: 7
+mzimba__chindi__timoti_bota:
+  new_count: 0
+  count: 1
+mzimba__chindi__aggripa_jere:
+  new_count: 0
+  count: 1
+chikwawa__kasisi__chabvala:
+  new_count: 0
+  count: 5
+dowa___mponela_urban__mponela_trading_centre:
+  new_count: 0
+  count: 9
+ntcheu__champiti__kampepuza:
+  new_count: 0
+  count: 1
+mzuzu_city__jombo_ward__malawi_housing_lines:
+  new_count: 0
+  count: 1
+mulanje__mabuka__mt_zion_compound:
+  new_count: 0
+  count: 1
+machinga__kawinga__mbele:
+  new_count: 0
+  count: 2
+machinga__kapoloma__other:
+  new_count: 0
+  count: 1
+chiradzulu__likoswe__maloya:
+  new_count: 0
+  count: 1
+chiradzulu__likoswe__ben_gomani:
+  new_count: 0
+  count: 1
+blantyre_city__blantyre_west_ward__kausiwa:
+  new_count: 0
+  count: 1
+likoma__mkumpha__chamba:
+  new_count: 0
+  count: 2
+likoma__mkumpha__khuyu:
+  new_count: 0
+  count: 1
+likoma__mkumpha__edward_nkhwemba:
+  new_count: 0
+  count: 1
+mchinji__mduwa__benedicto:
+  new_count: 0
+  count: 1

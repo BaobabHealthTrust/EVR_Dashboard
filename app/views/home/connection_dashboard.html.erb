@@ -151,20 +151,34 @@
             }
         }
 
-        circle.setAttribute("r", (r));
-
+        circle.setAttribute("r", (0.8*r));
         circle.setAttribute("id", id);
-
         circle.setAttribute("fill", color);
-
         circle.setAttribute("stroke-width", 0.05);
-
         circle.setAttribute("stroke", "rgba(0,0,0,0.8)");
-
         circle.setAttribute("data-tooltip", village);
-
         mw.appendChild(circle);
+
     }
+
+    function insertSiteMarkerByOffset(x, y, color, id, district, village) {
+
+        var doc = __$("district").contentDocument;
+        var mw = doc.getElementById(district);
+        var target = districtOffsets[district];
+
+        var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
+        svgimg.setAttribute('height','2');
+        svgimg.setAttribute('width','2');
+        svgimg.setAttribute('z-index','2000');
+        svgimg.setAttribute('id', ("pin-" + id));
+        svgimg.setAttribute("visibility", "hidden");
+        svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href','pin.svg');
+        svgimg.setAttribute('x',(x - 1.02*target.x));
+        svgimg.setAttribute('y',(y - 1.005*target.y));
+        mw.appendChild(svgimg);
+    }
+
 
     function loadSiteConnections(district){
 
@@ -174,10 +188,11 @@
                 durations = JSON.parse(r)[1];
 
                 loadDistrictSitesByOffsets("lilongwe");
+                loadDistrictSitesMarkerByOffsets("lilongwe");
 
                 jQuery.ajax({url: "/home/connection_lastseen_status",
                     success: function(r){
-                        lastseen = JSON.parse(r);
+                        lastseen = JSON.parse(r)[0];
                         loadSites(lastseen, district);
                     }
                 });
@@ -206,6 +221,30 @@
             }
 
             insertSiteByOffset(result[0], result[1], colors[pos], district + '_' + target[i]["facility_id"], district, vg);
+
+        }
+
+    }
+
+    function loadDistrictSitesMarkerByOffsets(district) {
+
+        var target = sites_by_zones[district];
+
+        for (var i = 0; i < target.length; i++) {
+
+            var result = latLon2Coord(target[i]["latitude"], target[i]["longitude"])
+
+            var colors = ["rgba(255,0,0,0.7)", "rgba(0,200,0,0.7)", "rgba(0,0,200,0.7)"];
+
+            var vg = district.toLowerCase().replace(/\s/g, '_') + "__mtema__" +target[i]['village'].replace(/\s/g, '_').toLowerCase();
+
+            if(connections[vg]) {
+                var pos = 1;
+            }else{
+                var pos = 0;
+            }
+
+            insertSiteMarkerByOffset(result[0], result[1], colors[pos], district + '_' + target[i]["facility_id"], district, vg);
 
         }
 
