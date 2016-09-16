@@ -1,0 +1,82 @@
+
+  <title>EVR Dashboard</title>
+  <script src="data/coords.js"></script>
+  <script src="data/districts.js"></script>
+  <script src="data/sites.js"></script>
+  <script src="data/zones.js"></script>
+  <script src="data/district_offsets.js"></script>
+  <style>
+        body {
+          font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+        }
+        .table{
+            border-collapse: collapse;
+            font-size: 1.8em;
+            margin: auto;
+            margin-top: 30px;
+            padding: 15px;
+
+        }
+
+        .table th, .table td{
+            border: 1px solid lightgray;
+            width: 50%;
+            padding: 7px;
+            padding-left: 25px;
+        }
+   </style>
+    <script>
+
+      if(scrollInterval){
+          window.clearInterval(scrollInterval);
+      }
+
+      if(toggleInterval){
+          window.clearInterval(toggleInterval);
+      }
+    </script>
+    <body>
+        <div id="c_district"
+             style="width: 100%; height: calc(100vh - 20px); text-align: center; float: right; border: 1px solid #000;">
+          <div style="background: #2e6da4; box-shadow: 5px 5px 5px #888888; color: white; width: 99%;margin: auto; height: 5%;font-size: 1.5em; padding-top: 8px;border-bottom: 1px dotted lightgray">
+            Population By Village
+          </div>
+            <div style="width: 95%;margin: auto;">
+                <table id="table1" class="table" style="width: 90%;background: ghostwhite">
+                    <tr>
+                      <th>Village</th>
+                      <th>Population</th>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="width: 95%;margin: auto; margin-top: 0px; height: 78vh; overflow: hidden;">
+            <table  id="table2" class="table" style="width: 90%;">
+              <% @result.each do |village, total|%>
+                  <%# district = village.split("__")[0].humanize%>
+                  <%# ta = village.split("__")[1].humanize%>
+                  <% village = village.split("__")[2].humanize%>
+                  <tr>
+
+                    <td style="text-align: left"><%= village%></td>
+                    <td style="text-align: right;"><%= total%></td>
+                  </tr>
+              <% end %>
+            </table>
+          </div>
+        </div>
+
+        <div id="district_label"
+             style="position: absolute; top: 5px;  color: white; left: 20px; border: 1px solid #ccc; padding: 5px; font-size: 22px;">
+          TA Mtema
+        </div>
+    </body>
+    <script>
+
+      var headers = __$("table1").getElementsByTagName("th");
+      var tds = __$("table2").getElementsByTagName("td");
+
+      for(var i = 0; i < tds.length; i ++){
+          jQuery(headers[i]).css("width", (jQuery(tds[i]).width() + "px"));
+      }
+    </script>

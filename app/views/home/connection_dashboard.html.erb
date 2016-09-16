@@ -9,26 +9,47 @@
         body {
           font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
         }
-        #legend{
+        #legend,  #legend2{
             width: 200px;
             margin-right: 2px;
             border-collapse: collapse;
+        }
+        #legend2{
+            width: 270px;
         }
         #red, #green{
             width: 50%;
             padding: 12px;
             border: 1px solid lightblue;
         }
+
+        #stat-red, #stat-green{
+            width: 50%;
+            padding: 12px;
+            border: 1px solid lightblue;
+            text-align: left;
+        }
+
         #red-txt, #green-txt{
             width: 60%;
             padding: 12px;
             border: 1px solid lightblue;
             text-align: right;
         }
-        #red{
+
+        #stat-red-txt, #stat-green-txt{
+            width: 60%;
+            padding: 12px;
+            border: 1px solid lightblue;
+            text-align: right;
+            font-weight: bold;
+
+        }
+
+        #red, #stat-red{
             background: rgba(255,0,0,0.7);
         }
-        #green{
+        #green, #stat-green{
             background: rgba(0,200,0,0.7);
         }
 
@@ -70,13 +91,15 @@
     <div style="position: absolute; top: 100px; right: 40%; border: 1px solid #ccc; padding: 5px; font-size: 22px;">
         <table id="legend">
             <tr>
-                <td id="red">&nbsp;</td>
-                <td id="red-txt">Down</td>
-            </tr>
-            <tr>
                 <td id="green">&nbsp;</td>
                 <td id="green-txt">Up</td>
             </tr>
+
+            <tr>
+                <td id="red">&nbsp;</td>
+                <td id="red-txt">Down</td>
+            </tr>
+
         </table>
     </div>
 
@@ -87,13 +110,13 @@
 
         <object id="district" type="image/svg+xml" data="images/mw/ll_north.svg"
                   style="height: 87%; width: 65%;float: left; border: 1.5px solid #ccc;margin: 8px;margin-top: 1.5%;">
-
         </object>
 
         <div id="district_label"
            style="position: absolute; top: 5px;  color: white; left: 20px; border: 1px solid #ccc; padding: 5px; font-size: 22px;">
-            Lilongwe
+            TA Mtema
         </div>
+
     </div>
 
 <script>
@@ -104,9 +127,11 @@
 
     connections = {};
     durations = {};
+    radius = {};
     var refPoints = [-9.6, -17.4, 33.05, 35.98];
     var offsets = [10, 295, 10, 710];
-
+    var up = 0;
+    var down = 0;
     for(var key in values['legend']){
         __$(key + "-txt").innerHTML = values['legend'][key];
     }
@@ -134,37 +159,41 @@
         var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
 
         circle.setAttribute("cx", (x - target.x));
-
         circle.setAttribute("cy", (y - target.y));
-        var rad = parseInt(durations[village.replace(/\s/g, '_').toLowerCase()]);
 
-        var r = 0.75;
-        if(!connections[village.replace(/\s/g, '_').toLowerCase()]) {
-            if (rad <= 60) {
-                r = 0.75;
-            } else if (rad <= 60 * 24) {
-                r = 1.25;
-            } else if (rad <= 60 * 24 * 7) {
-                r = 1.75;
-            } else if (rad > 60 * 24 * 7) {
-                r = 2.25;
-            }
+        var r = 0.25;
+        if(radius[village.replace(/\s/g, '_').toLowerCase()]) {
+            r = radius[village.replace(/\s/g, '_').toLowerCase()][0];
         }
 
-        circle.setAttribute("r", (r));
-
+        circle.setAttribute("r", r);
         circle.setAttribute("id", id);
-
         circle.setAttribute("fill", color);
-
-        circle.setAttribute("stroke-width", 0.05);
-
-        circle.setAttribute("stroke", "rgba(0,0,0,0.8)");
-
+        circle.setAttribute("stroke-width", 0.025);
+        circle.setAttribute("stroke", "rgba(0,0,0,0.7)");
         circle.setAttribute("data-tooltip", village);
-
         mw.appendChild(circle);
+
     }
+
+    function insertSiteMarkerByOffset(x, y, color, id, district, village) {
+
+        var doc = __$("district").contentDocument;
+        var mw = doc.getElementById(district);
+        var target = districtOffsets[district];
+
+        var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
+        svgimg.setAttribute('height','2');
+        svgimg.setAttribute('width','2');
+        svgimg.setAttribute('z-index','2000');
+        svgimg.setAttribute('id', ("pin-" + id));
+        svgimg.setAttribute("visibility", "hidden");
+        svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href','pin.svg');
+        svgimg.setAttribute('x',(x - 1.02*target.x));
+        svgimg.setAttribute('y',(y - 1.005*target.y));
+        mw.appendChild(svgimg);
+    }
+
 
     function loadSiteConnections(district){
 
@@ -172,12 +201,16 @@
             success: function(r){
                 connections = JSON.parse(r)[0];
                 durations = JSON.parse(r)[1];
+                radius = JSON.parse(r)[2];
 
                 loadDistrictSitesByOffsets("lilongwe");
+                loadDistrictSitesMarkerByOffsets("lilongwe");
+                __$("green").innerHTML = up;
+                __$("red").innerHTML = down;
 
                 jQuery.ajax({url: "/home/connection_lastseen_status",
                     success: function(r){
-                        lastseen = JSON.parse(r);
+                        lastseen = JSON.parse(r)[0];
                         loadSites(lastseen, district);
                     }
                 });
@@ -195,6 +228,32 @@
 
             var result = latLon2Coord(target[i]["latitude"], target[i]["longitude"])
 
+            var colors = ["rgba(255,0,0,0.6)", "rgba(0,200,0,0.6)", "rgba(0,0,200,0.6)"];
+
+            var vg = district.toLowerCase().replace(/\s/g, '_') + "__mtema__" +target[i]['village'].replace(/\s/g, '_').toLowerCase();
+
+            if(connections[vg]) {
+                var pos = 1;
+                up += 1;
+            }else{
+                var pos = 0;
+                down += 1;
+            }
+
+            insertSiteByOffset(result[0], result[1], colors[pos], district + '_' + target[i]["facility_id"], district, vg);
+
+        }
+
+    }
+
+    function loadDistrictSitesMarkerByOffsets(district) {
+
+        var target = sites_by_zones[district];
+
+        for (var i = 0; i < target.length; i++) {
+
+            var result = latLon2Coord(target[i]["latitude"], target[i]["longitude"])
+
             var colors = ["rgba(255,0,0,0.7)", "rgba(0,200,0,0.7)", "rgba(0,0,200,0.7)"];
 
             var vg = district.toLowerCase().replace(/\s/g, '_') + "__mtema__" +target[i]['village'].replace(/\s/g, '_').toLowerCase();
@@ -205,7 +264,7 @@
                 var pos = 0;
             }
 
-            insertSiteByOffset(result[0], result[1], colors[pos], district + '_' + target[i]["facility_id"], district, vg);
+            insertSiteMarkerByOffset(result[0], result[1], colors[pos], district + '_' + target[i]["facility_id"], district, vg);
 
         }
 

@@ -52,6 +52,7 @@ GEM
     concurrent-ruby (1.0.2)
     daemon_controller (1.2.0)
     debug_inspector (0.0.2)
+    descriptive_statistics (2.5.1)
     domain_name (0.5.20160615)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
@@ -167,6 +168,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
+  descriptive_statistics
   jbuilder (~> 2.0)
   jquery-rails
   json
