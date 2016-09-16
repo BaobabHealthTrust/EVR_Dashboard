@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 	 get "home/births_deaths_stats"
    get "home/connection_lastseen_status"
    get "home/connection_lastseennews_status"
+   get "home/population"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

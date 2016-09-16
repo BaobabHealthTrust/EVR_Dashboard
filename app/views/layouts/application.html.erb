@@ -8,6 +8,7 @@
 
   <script>
       var scrollInterval;
+      var toggleInterval;
 
       var scrolling = true;
 
@@ -47,25 +48,28 @@
       }
 
 		dashboard = [
-				  {
-				      'title' : 'Site Connection Status',
-				      'src' : '/home/connection_dashboard',
-				      'legend' : {
-				          'red' : 'Down',
-				          'green' : 'Up'
-				      }
-				   },
-					{
-				      'title' : 'News Reading Status',
-				      'src' : '/home/news_dashboard',
-				      'legend' : {
-				          'green' : 'Read in 48 hrs',
-									'yellow' : 'Not read in 48 hrs',
-				          'red' : 'Not read in 3 days'
-				      }
-				   }
-			]
-
+                {
+                    'title' : 'Population By Village',
+                    'src' : '/home/population'
+                },
+                {
+                    'title' : 'News Reading Status',
+                    'src' : '/home/news_dashboard',
+                    'legend' : {
+                        'green' : 'Read in 48 hrs',
+                        'yellow' : 'Not read in 48 hrs',
+                        'red' : 'Not read in 3 days'
+                    }
+                },
+                {
+                  'title' : 'Site Connection Status',
+                  'src' : '/home/connection_dashboard',
+                  'legend' : {
+                      'red' : 'Down',
+                      'green' : 'Up'
+                  }
+                }
+			];
 
   </script>
 </head>

@@ -9,7 +9,17 @@ namespace :dashboard do
     interval = 60 #(YAML.load_file "#{Rails.root}/config/application.yml")["#{Rails.env}"]["pull_interval_minutes"]
     interval = interval.to_i * 60
     result = YAML.load_file("#{Rails.root}/public/sites_data.yml") || {}
+    result.each do |site, data|
+      if result["#{site}"]["ping_timestamp"].blank? || result["#{site}"]["ping_timestamp"].to_date < Date.today
+        result["#{site}"]["new_births"] = 0
+        result["#{site}"]["births"] = 0
 
+        result["#{site}"]["new_deaths"] = 0
+        result["#{site}"]["deaths"] = 0
+
+        result["#{site}"]["new_count"] = 0
+      end
+    end
     ip = "#{ip}/api/dashboard"
     rst = JSON.parse(RestClient.get(ip)) rescue {}
     online = rst['online']
