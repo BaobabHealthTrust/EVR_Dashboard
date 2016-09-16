@@ -3,6 +3,7 @@ gem 'net-ping'
 gem 'json'
 gem 'rest-client'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'passenger', '4.0.53'
 gem 'rails', '4.2.6'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'

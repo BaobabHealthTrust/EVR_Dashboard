@@ -11,7 +11,7 @@ namespace :dashboard do
     result = YAML.load_file("#{Rails.root}/public/sites_data.yml") || {}
 
     ip = "#{ip}/api/dashboard"
-    rst = JSON.parse(RestClient.get(ip)) rescue {}
+    rst = JSON.parse(RestClient.get(ip)) #rescue {}
     online = rst['online']
 
     online.each do |site, lastseen|
