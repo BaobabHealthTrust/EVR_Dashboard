@@ -5,16 +5,16 @@ lilongwe__mtema__kanyoza:
   news_ping: false
   news_ping_timestamp: '2016-09-16 12:52:23'
   new_deaths: 0
-  deaths: 1
+  deaths: 0
   new_count: 0
   count: 7
   new_births: 0
-  births: 3
+  births: 0
 lilongwe__mtema__kambira:
   ping: false
   ping_timestamp: '2016-09-16 13:09:14'
   new_births: 0
-  births: 1
+  births: 0
   new_deaths: 0
   deaths: 0
   new_count: 0

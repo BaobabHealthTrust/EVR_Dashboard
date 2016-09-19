@@ -18,10 +18,12 @@
 
       var scrollDelay = 5;
 
-			var values = {};
+      var values = {};
 
 
       function pageScroll(node) {
+
+          var pause = false;
 
           height = node.scrollTop;
 
@@ -33,11 +35,15 @@
               scrollDelay = 5000;
 
               if(height != 0){
-
+                  if (yJump > 0){
+                      pause = true
+                  }
                   yJump = -0.0015*window.innerHeight;
 
               }else{
-
+                  if (yJump < 0){
+                      pause = true
+                  }
                   yJump = 0.0015*window.innerHeight;
               }
           }else{
@@ -45,9 +51,23 @@
               scrollDelay = 10;
 
           }
+
+          if (pause){
+              window.clearInterval(scrollInterval);
+
+              setTimeout(function(){
+                  scrollInterval = window.setInterval(function () {
+                      pageScroll(node);
+                  }, 5);
+              }, 5000);
+          }
       }
 
 		dashboard = [
+            {
+                'title' : 'Population By Village',
+                'src' : '/home/population'
+            },
                 {
                     'title' : 'Site Connection Status',
                     'src' : '/home/connection_dashboard',
@@ -64,11 +84,8 @@
                         'yellow' : 'Not read in 48 hrs',
                         'red' : 'Not read in 3 days'
                     }
-                },
-                {
-                    'title' : 'Population By Village',
-                    'src' : '/home/population'
                 }
+
 			];
 
   </script>
