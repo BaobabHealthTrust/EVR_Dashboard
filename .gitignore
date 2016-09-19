@@ -16,3 +16,4 @@
 !/log/.keep
 .idea*
 /tmp
+public/sites_data.yml

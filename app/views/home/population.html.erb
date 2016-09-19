@@ -21,8 +21,9 @@
         .table th, .table td{
             border: 1px solid lightgray;
             width: 50%;
-            padding: 7px;
+            padding: 8px;
             padding-left: 25px;
+            padding-right: 25px;
         }
    </style>
     <script>
@@ -50,20 +51,20 @@
                 </table>
             </div>
 
-            <div style="width: 95%;margin: auto; margin-top: 0px; height: 78vh; overflow: hidden;">
-            <table  id="table2" class="table" style="width: 90%;">
-              <% @result.each do |village, total|%>
-                  <%# district = village.split("__")[0].humanize%>
-                  <%# ta = village.split("__")[1].humanize%>
-                  <% village = village.split("__")[2].humanize%>
-                  <tr>
+            <div id="holder" style="width: 95%;margin: auto; margin-top: 0px; height: 78vh; overflow: hidden;">
+                <table  id="table2" class="table" style="width: 90%;">
+                  <% @result.each do |village, total|%>
+                      <%# district = village.split("__")[0].humanize%>
+                      <%# ta = village.split("__")[1].humanize%>
+                      <% village = village.split("__")[2].humanize%>
+                      <tr>
 
-                    <td style="text-align: left"><%= village%></td>
-                    <td style="text-align: right;"><%= total%></td>
-                  </tr>
-              <% end %>
-            </table>
-          </div>
+                        <td style="text-align: left"><%= village%></td>
+                        <td style="text-align: right;"><%= total%></td>
+                      </tr>
+                  <% end %>
+                </table>
+            </div>
         </div>
 
         <div id="district_label"
@@ -79,4 +80,11 @@
       for(var i = 0; i < tds.length; i ++){
           jQuery(headers[i]).css("width", (jQuery(tds[i]).width() + "px"));
       }
+
+      setTimeout(function(){
+          scrollInterval = window.setInterval(function () {
+              pageScroll(__$("holder"))
+          }, scrollDelay);
+      }, 5000);
+
     </script>
