@@ -155,7 +155,7 @@ var sites_by_zones = {
             "altitude": 1197
         },
         {
-            "village": "MPHONDE",
+            "village": "Mphonde",
             "longitude": 33.61992,
             "latitude": -13.712159,
             "altitude": 1246
@@ -167,13 +167,13 @@ var sites_by_zones = {
             "altitude": 1235
         },
         {
-            "village": "VG Maole",
+            "village": "Maole",
             "longitude": 33.64309,
             "latitude": -13.755825,
             "altitude": 1239
         },
         {
-            "village": "Waya kunseche",
+            "village": "Waya Kunseche",
             "longitude": 33.636745,
             "latitude": -13.783274,
             "altitude": 1198
@@ -215,13 +215,13 @@ var sites_by_zones = {
             "altitude": 1117
         },
         {
-            "village": "GV Taiza",
+            "village": "Taiza",
             "longitude": 33.69068,
             "latitude": -13.908218,
             "altitude": 1108
         },
         {
-            "village": "Mzumazi 2",
+            "village": "Mzumazi",
             "longitude": 33.71395,
             "latitude": -13.89821667,
             "altitude": 1109
