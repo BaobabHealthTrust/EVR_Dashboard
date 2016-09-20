@@ -276,9 +276,9 @@
 
             if(connections[site_name.replace(/\s/g, '_').toLowerCase()]){
 
-                tr.innerHTML = "<td id='site_name'>" +site_village_name.capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim() + " <span class='circle online'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
+                tr.innerHTML = "<td id='site_name'>" +site_village_name.replace(/\s+/g, ' ').capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim() + " <span class='circle online'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
             }else{
-                tr.innerHTML = "<td id='site_name'>" + site_village_name.capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim() + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
+                tr.innerHTML = "<td id='site_name'>" + site_village_name.replace(/\s+/g, ' ').capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim() + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
             }
 
             __$("list").appendChild(tr);
