@@ -19,7 +19,7 @@
         }
         #red, #green{
             width: 50%;
-            padding: 12px;
+            padding: 8px;
             border: 1px solid lightblue;
         }
 
@@ -84,11 +84,11 @@
   </style>
 
 <div id="c_district"
-     style="width: 100%; height: calc(100vh - 20px); text-align: center; float: right; border: 1px solid #000;">
+     style="width: 100%; height: 100%; text-align: center; float: right; border: 1px solid #000;">
     <div style="background: #2e6da4; box-shadow: 5px 5px 5px #888888; color: white; width: 99%;margin: auto; height: 5%;font-size: 1.5em; padding-top: 8px;border-bottom: 1px dotted lightgray">
         Sites EVR Acces Status
     </div>
-    <div style="position: absolute; top: 100px; right: 40%; border: 1px solid #ccc; padding: 5px; font-size: 22px;">
+    <div id="leg" style="position: absolute; right: 40%; border: 1px solid #ccc; padding: 5px; font-size: 22px;">
         <table id="legend">
             <tr>
                 <td id="green">&nbsp;</td>
@@ -103,13 +103,13 @@
         </table>
     </div>
 
-        <div id="list-parent" style="width: 32%;position: absolute; right: 2%;  height: 85%; overflow: hidden; margin-top: 1.5%;float: right;">
-            <table id="list" style="width: 100%; font-size: 1.4em;">
+        <div id="list-parent" style="width: 37%;position: absolute; right: 2%;  height: 86%; overflow: hidden; margin-top: 1.5%;float: right;">
+            <table id="list" style="width: 100%; font-size: 1.5em;background: ghostwhite;">
             </table>
         </div>
 
         <object id="district" type="image/svg+xml" data="images/mw/ll_north.svg"
-                  style="height: 87%; width: 65%;float: left; border: 1.5px solid #ccc;margin: 8px;margin-top: 1.5%;">
+                  style="height: 87%; width: 60%;float: left; border: 1.5px solid #ccc;margin: 8px;margin-top: 1.5%;">
         </object>
 
         <div id="district_label"
@@ -281,9 +281,9 @@
 
             if(connections[site_name.replace(/\s/g, '_').toLowerCase()]){
 
-                tr.innerHTML = "<td id='site_name'>" +site_village_name.capitalize() + " <span class='circle online'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
+                tr.innerHTML = "<td id='site_name'>" +site_village_name.capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim() + " <span class='circle online'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
             }else{
-                tr.innerHTML = "<td id='site_name'>" + site_village_name.capitalize() + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
+                tr.innerHTML = "<td id='site_name'>" + site_village_name.capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim() + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
             }
 
             __$("list").appendChild(tr);
@@ -302,7 +302,7 @@
             var site_village_name = site_name.split(/\__/);
             site_village_name =  site_village_name[ site_village_name.length - 1];
 
-            tr.innerHTML = "<td id='site_name'>"+  site_village_name.capitalize() + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>Offline</td>"
+            tr.innerHTML = "<td id='site_name'>"+  site_village_name.capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim() + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>Offline</td>"
             __$("list").appendChild(tr);
         }
     }
