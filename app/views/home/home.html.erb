@@ -52,19 +52,24 @@
 
  setTimeout(function(){
      __$("iframe").style.height = (window.innerHeight * 0.97) + "px";
-     __$("holder").style.height = (window.innerHeight * 0.78) + "px";
+     if(__$("holder")) {
+         __$("holder").style.height = (window.innerHeight * 0.78) + "px";
 
-
+     }
  }, 50);
 
   setTimeout(function(){
       __$("iframe").style.height = (window.innerHeight * 0.97) + "px";
-      __$("holder").style.height = (window.innerHeight * 0.78) + "px";
+      if(__$("holder")) {
+          __$("holder").style.height = (window.innerHeight * 0.78) + "px";
+      }
   }, 250);
 
   setTimeout(function(){
       __$("iframe").style.height = (window.innerHeight * 0.97) + "px";
-      __$("holder").style.height = (window.innerHeight * 0.78) + "px";
+      if(__$("holder")) {
+          __$("holder").style.height = (window.innerHeight * 0.78) + "px";
+      }
   }, 500);
 
 setTimeout(function(){
