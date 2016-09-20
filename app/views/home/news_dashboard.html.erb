@@ -10,7 +10,7 @@
           font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
         }
         #legend, #legend2{
-            width: 320px;
+            width: 350px;
             margin-right: 2px;
             border-collapse: collapse;
         }
@@ -19,7 +19,7 @@
         }
         #red, #green, #yellow{
             width: 35%;
-            padding: 9px;
+            padding: 8px;
             border: 1px solid lightblue;
         }
         #stat-red, #stat-green, #stat-yellow{
@@ -96,7 +96,7 @@
 				}
 				.card{
 					text-align: center;
-					border-bottom: 1px dotted lightgray
+					border-bottom: 1px dotted lightgray;
 				}
    </style>
   <script>
@@ -110,11 +110,11 @@
       }
   </script>
 <div id="c_district"
-     style="width: 100%; height: calc(100vh - 20px); text-align: center; float: right; border: 1px solid #000;">
+     style="width: 100%; height: 100%; text-align: center; float: right; border: 1px solid #000;">
     <div id="title" style="background: #2e6da4; box-shadow: 5px 5px 5px #888888; color: white; width: 99%;margin: auto; height: 5%;font-size: 1.5em; padding-top: 8px;border-bottom: 1px dotted lightgray">
         News Reading
     </div>
-    <div style="position: absolute; top: 10vh; right: 28%; border: 1px solid #ccc; padding: 5px; font-size: 22px;">
+    <div id="leg" style="position: absolute; right: 28%; border: 1px solid #ccc; padding: 5px; font-size: 22px;">
         <table id="legend">
             <tr>
                 <td id="green">&nbsp;</td>
@@ -139,13 +139,13 @@
 								<tr>
 									<td id="births" style="height: 250px;width: 100%;">
 										<div class="card" style="width: 100%">New Births</div>
-										<div id="births-txt" style="width: 100%; padding-top:50px;font-size: 2em;">&nbsp;</div>
+										<div id="births-txt" style="width: 100%; padding: 20px;font-size: 1.8em;">&nbsp;</div>
 									</td>
 								</tr>
 								<tr>
-									<td id="deaths"style="height: 250px;width: 100%;">
+									<td id="deaths" style="height: 220px;width: 100%;">
 										<div class="card" style="width: 100%">New Deaths</div>
-										<div id="deaths-txt" style="width: 100%; padding-top:50px;font-size: 2em;">&nbsp;</div>
+										<div id="deaths-txt" style="width: 100%;padding: 20px;font-size: 1.8em;">&nbsp;</div>
 									</td>
 								</tr>
             </table>

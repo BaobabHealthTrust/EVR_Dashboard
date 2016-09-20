@@ -5,22 +5,25 @@
   <style>
     #iframe{
         width: 99%;
-        height: 97vh;
         margin: 0px;;
         border: 1px solid lightgray;
         padding: 0px;
     }
 
-          body{
-              padding: 0px;
-              margin: 0px;
+  body{
+      padding: 0px;
+      margin: 0px;
+  }
+
+          #leg{
+              top: 90px;
           }
 
   </style>
 </head>
 <body>
 
-<div id="iframe" src="/home/connection_dashboard">
+<div id="iframe">
 
 </div>
 
@@ -46,6 +49,23 @@
 
           $("#iframe").load(dashboard[index]['src']);
  	}
+
+ setTimeout(function(){
+     __$("iframe").style.height = (window.innerHeight * 0.97) + "px";
+     __$("holder").style.height = (window.innerHeight * 0.78) + "px";
+
+
+ }, 50);
+
+  setTimeout(function(){
+      __$("iframe").style.height = (window.innerHeight * 0.97) + "px";
+      __$("holder").style.height = (window.innerHeight * 0.78) + "px";
+  }, 250);
+
+  setTimeout(function(){
+      __$("iframe").style.height = (window.innerHeight * 0.97) + "px";
+      __$("holder").style.height = (window.innerHeight * 0.78) + "px";
+  }, 500);
 
 setTimeout(function(){
   rotate();

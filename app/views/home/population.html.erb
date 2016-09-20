@@ -7,11 +7,10 @@
   <script src="data/district_offsets.js"></script>
   <style>
         body {
-          font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
         }
         .table{
             border-collapse: collapse;
-            font-size: 1.8em;
+            font-size: 2em;
             margin: auto;
             margin-top: 30px;
             padding: 15px;
@@ -21,10 +20,13 @@
         .table th, .table td{
             border: 1px solid lightgray;
             width: 50%;
-            padding: 8px;
+            padding: 12px;
             padding-left: 25px;
             padding-right: 25px;
         }
+          .table td{
+              background: ghostwhite;
+          }
    </style>
     <script>
 
@@ -38,12 +40,12 @@
     </script>
     <body>
         <div id="c_district"
-             style="width: 100%; height: calc(100vh - 20px); text-align: center; float: right; border: 1px solid #000;">
+             style="width: 100%; height: 98%; text-align: center; float: right; border: 1px solid #000;">
           <div style="background: #2e6da4; box-shadow: 5px 5px 5px #888888; color: white; width: 99%;margin: auto; height: 5%;font-size: 1.5em; padding-top: 8px;border-bottom: 1px dotted lightgray">
             Population By Village
           </div>
             <div style="width: 95%;margin: auto;">
-                <table id="table1" class="table" style="width: 90%;background: ghostwhite">
+                <table id="table1" class="table" style="width: 90%;background: #2e6da4;color: white;">
                     <tr>
                       <th>Village</th>
                       <th>Population</th>
@@ -51,7 +53,7 @@
                 </table>
             </div>
 
-            <div id="holder" style="width: 95%;margin: auto; margin-top: 0px; height: 78vh; overflow: hidden;">
+            <div id="holder" style="width: 95%;margin: auto; margin-top: 0px; overflow: hidden;">
                 <table  id="table2" class="table" style="width: 90%;">
                   <% @result.each do |village, total|%>
                       <%# district = village.split("__")[0].humanize%>
