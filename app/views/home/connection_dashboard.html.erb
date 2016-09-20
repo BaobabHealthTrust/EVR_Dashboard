@@ -160,8 +160,8 @@
         circle.setAttribute("cy", (y - target.y));
 
         var r = 0.25;
-        if(radius[village.replace(/\s/g, '_').toLowerCase()]) {
-            r = radius[village.replace(/\s/g, '_').toLowerCase()][0];
+        if(radius[village.replace(/\s+/g, '_').toLowerCase()]) {
+            r = radius[village.replace(/\s+/g, '_').toLowerCase()][0];
         }
 
         circle.setAttribute("r", r);
@@ -228,7 +228,6 @@
 
             var colors = ["rgba(255,0,0,0.6)", "rgba(0,200,0,0.6)", "rgba(0,0,200,0.6)"];
             var vg = district.toLowerCase().replace(/\s/g, '_') + "__mtema__" +target[i]['village'].replace(/\s/g, '_').toLowerCase();
-
             if(connections[vg]) {
                 var pos = 1;
                 up += 1;
@@ -287,18 +286,19 @@
 
         for (var i in  sites_by_zones[district]){
 
-            site_name = sites_by_zones[district][i]['village'];
+            site_name = sites_by_zones[district][i]['village']
+            var id = sites_by_zones[district][i]['village'].replace(/\s+/, "_").toLowerCase();
 
             if (__$(site_name)){
                 continue;
             }
 
             var tr = document.createElement("tr");
-            tr.id = site_name;
+            tr.id = id;
             var site_village_name = site_name.split(/\__/);
             site_village_name =  site_village_name[ site_village_name.length - 1];
 
-            tr.innerHTML = "<td id='site_name'>"+  site_village_name.capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim() + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>Offline</td>"
+            tr.innerHTML = "<td id='site_name'>"+  site_village_name.capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim().replace(/\s+/, "_").toLowerCase() + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>Offline</td>"
             __$("list").appendChild(tr);
         }
     }
