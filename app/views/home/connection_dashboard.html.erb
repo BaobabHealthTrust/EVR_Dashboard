@@ -1,9 +1,7 @@
 
   <title>EVR Dashboard</title>
-  <script src="data/coords.js"></script>
-  <script src="data/districts.js"></script>
+
   <script src="data/sites.js"></script>
-  <script src="data/zones.js"></script>
   <script src="data/district_offsets.js"></script>
   <style>
         body {
@@ -229,7 +227,6 @@
             var result = latLon2Coord(target[i]["latitude"], target[i]["longitude"])
 
             var colors = ["rgba(255,0,0,0.6)", "rgba(0,200,0,0.6)", "rgba(0,0,200,0.6)"];
-
             var vg = district.toLowerCase().replace(/\s/g, '_') + "__mtema__" +target[i]['village'].replace(/\s/g, '_').toLowerCase();
 
             if(connections[vg]) {
@@ -271,7 +268,6 @@
     }
 
     function loadSites(data, district){
-
         for (var site_name in  data){
             var tr = document.createElement("tr");
             tr.id = site_name;
@@ -281,9 +277,9 @@
 
             if(connections[site_name.replace(/\s/g, '_').toLowerCase()]){
 
-                tr.innerHTML = "<td id='site_name'>" +site_village_name.capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A|\_/i, "").trim() + " <span class='circle online'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
+                tr.innerHTML = "<td id='site_name'>" +site_village_name.capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim() + " <span class='circle online'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
             }else{
-                tr.innerHTML = "<td id='site_name'>" + site_village_name.capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A|\_/i, "").trim() + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
+                tr.innerHTML = "<td id='site_name'>" + site_village_name.capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim() + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
             }
 
             __$("list").appendChild(tr);
@@ -302,7 +298,7 @@
             var site_village_name = site_name.split(/\__/);
             site_village_name =  site_village_name[ site_village_name.length - 1];
 
-            tr.innerHTML = "<td id='site_name'>"+  site_village_name.capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A|\_/i, "").trim() + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>Offline</td>"
+            tr.innerHTML = "<td id='site_name'>"+  site_village_name.capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim() + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>Offline</td>"
             __$("list").appendChild(tr);
         }
     }
