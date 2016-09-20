@@ -17,7 +17,7 @@ var sites_by_zones = {
             "altitude": 1154
         },
         {
-            "village": "GVH Mtsukwa Chikupa",
+            "village": "Mtsukwa Chikupa",
             "longitude": 33.633087,
             "latitude": -13.827159,
             "altitude": 1172
@@ -89,7 +89,7 @@ var sites_by_zones = {
             "altitude": 1259
         },
         {
-            "village": "T/A Kamphinga",
+            "village": "Kamphinga",
             "longitude": 33.62708333,
             "latitude": -13.7489,
             "altitude": 1238
@@ -131,37 +131,37 @@ var sites_by_zones = {
             "altitude": 1252
         },
         {
-            "village": "vh Chalasa",
+            "village": "Chalasa",
             "longitude": 33.63649,
             "latitude": -13.79453,
             "altitude": 1209
         },
         {
-            "village": "T/A Mtema",
+            "village": "Mtema",
             "longitude": 33.647545,
             "latitude": -13.788055,
             "altitude": 1207
         },
         {
-            "village": "VH Mankhwazi",
+            "village": "Mankhwazi",
             "longitude": 33.61003,
             "latitude": -13.743417,
             "altitude": 1232
         },
         {
-            "village": "VH Maselero",
+            "village": "Maselero",
             "longitude": 33.595924,
             "latitude": -13.725797,
             "altitude": 1197
         },
         {
-            "village": "GVH MPHONDE",
+            "village": "MPHONDE",
             "longitude": 33.61992,
             "latitude": -13.712159,
             "altitude": 1246
         },
         {
-            "village": "VH Thandaza",
+            "village": "Thandaza",
             "longitude": 33.616028,
             "latitude": -13.726902,
             "altitude": 1235
@@ -173,19 +173,19 @@ var sites_by_zones = {
             "altitude": 1239
         },
         {
-            "village": "Wayakunseche",
+            "village": "Waya kunseche",
             "longitude": 33.636745,
             "latitude": -13.783274,
             "altitude": 1198
         },
         {
-            "village": "Mutu Village",
+            "village": "Mutu",
             "longitude": 33.72327,
             "latitude": -13.919864,
             "altitude": 1083
         },
         {
-            "village": "Kamadzi Village",
+            "village": "Kamadzi",
             "longitude": 33.713264,
             "latitude": -13.914153,
             "altitude": 1075
