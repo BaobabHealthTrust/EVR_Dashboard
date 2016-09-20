@@ -269,10 +269,10 @@
     function loadSites(data, district){
         for (var site_name in  data){
             var tr = document.createElement("tr");
-            tr.id = site_name;
 
             var site_village_name = site_name.split(/\__/);
             site_village_name =  site_village_name[ site_village_name.length - 1];
+            tr.id = site_village_name;
 
             if(connections[site_name.replace(/\s/g, '_').toLowerCase()]){
 
@@ -298,7 +298,7 @@
             var site_village_name = site_name.split(/\__/);
             site_village_name =  site_village_name[ site_village_name.length - 1];
 
-            tr.innerHTML = "<td id='site_name'>"+  site_village_name.capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim().replace(/\s+/, "_").toLowerCase() + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>Offline</td>"
+            tr.innerHTML = "<td id='site_name'>"+  site_village_name.capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim().replace(/\s+/, " ") + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>Offline</td>"
             __$("list").appendChild(tr);
         }
     }
