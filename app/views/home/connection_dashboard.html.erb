@@ -273,12 +273,15 @@
             var site_village_name = site_name.split(/\__/);
             site_village_name =  site_village_name[ site_village_name.length - 1];
             tr.id = site_village_name;
-
+            var prefix = "";
+            if(!sites_by_zones[district][i]['village']){
+                var prefix = "<span style='color: red'>X</span>";
+            }
             if(connections[site_name.replace(/\s/g, '_').toLowerCase()]){
 
-                tr.innerHTML = "<td id='site_name'>" +site_village_name.replace(/\_+/g, ' ').capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim() + " <span class='circle online'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
+                tr.innerHTML = "<td id='site_name'>"  +prefix + site_village_name.replace(/\_+/g, ' ').capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim() + " <span class='circle online'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
             }else{
-                tr.innerHTML = "<td id='site_name'>" + site_village_name.replace(/\_+/g, ' ').capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim() + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
+                tr.innerHTML = "<td id='site_name'>" + prefix + site_village_name.replace(/\_+/g, ' ').capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim() + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
             }
 
             __$("list").appendChild(tr);
