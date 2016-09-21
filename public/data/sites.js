@@ -317,7 +317,7 @@ var sites_by_zones = {
             "altitude": 1167
         },
         {
-            "village": "Chimphepo",
+            "village": "Chimphepo chalasa",
             "longitude": 33.61563333,
             "latitude": -13.79673333,
             "altitude": 1181
