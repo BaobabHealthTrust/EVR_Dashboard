@@ -160,6 +160,12 @@
            style="position: absolute; top: 5px;  color: white; left: 20px; border: 1px solid #ccc; padding: 5px; font-size: 22px;">
             TA Mtema
         </div>
+
+          <div id="village_label"
+               style="position: absolute; bottom: 60px; text-align: left; left: 15px; border: 1px solid ghostwhite; padding: 5px; font-size: 22px;width:40%;">
+            &nbsp;
+          </div>
+
     </div>
 
 <script>
@@ -219,6 +225,17 @@
         circle.setAttribute("stroke-width", 0.025);
         circle.setAttribute("stroke", "rgba(0,0,0,0.7)");
         circle.setAttribute("data-tooltip", village);
+        var v = village.split(/\_+/);
+        v = v[v.length -1 ];
+        circle.setAttribute("title", v.capitalize());
+
+        circle.onmouseover = function(){
+            __$("village_label").innerHTML = v.capitalize();
+        };
+
+        circle.onmouseout = function(){
+            __$("village_label").innerHTML = "&nbsp;";
+        };
         mw.appendChild(circle);
     }
 
@@ -336,6 +353,11 @@
             var colors = ["rgba(255,0,0,0.7)", "rgba(200,200,0,0.7)", "rgba(0,200,0,0.7)"];
 
             var vg = district.toLowerCase().replace(/\s/g, '_') + "__mtema__" +target[i]['village'].replace(/\s/g, '_').toLowerCase();
+
+            if (!radius[vg]){
+                continue;
+            }
+
             var pos = parseInt(data[vg]);
             if (!colors[pos]){pos = 0};
 

@@ -115,6 +115,11 @@
             TA Mtema
         </div>
 
+      <div id="village_label"
+           style="position: absolute; bottom: 60px; text-align: left; left: 15px; border: 1px solid ghostwhite; padding: 5px; font-size: 22px;width:40%;">
+        &nbsp;
+      </div>
+
     </div>
 
 <script>
@@ -170,6 +175,18 @@
         circle.setAttribute("stroke-width", 0.025);
         circle.setAttribute("stroke", "rgba(0,0,0,0.7)");
         circle.setAttribute("data-tooltip", village);
+        var v = village.split(/\_+/);
+        v = v[v.length -1 ];
+        circle.setAttribute("title", v.capitalize());
+
+        circle.onmouseover = function(){
+           __$("village_label").innerHTML = v.capitalize();
+        };
+
+        circle.onmouseout = function(){
+            __$("village_label").innerHTML = "&nbsp;";
+        }
+
         mw.appendChild(circle);
 
     }
@@ -228,6 +245,11 @@
 
             var colors = ["rgba(255,0,0,0.6)", "rgba(0,200,0,0.6)", "rgba(0,0,200,0.6)"];
             var vg = district.toLowerCase().replace(/\s/g, '_') + "__mtema__" +target[i]['village'].replace(/\s/g, '_').toLowerCase();
+
+            if (!radius[vg]){
+                continue;
+            }
+
             if(connections[vg]) {
                 var pos = 1;
                 up += 1;
@@ -267,6 +289,13 @@
     }
 
     function loadSites(data, district){
+        var villages = []
+        for (var i in  sites_by_zones[district]){
+
+            site_name = sites_by_zones[district][i]['village']
+            villages.push(sites_by_zones[district][i]['village'].replace(/\s+/, "_").toLowerCase());
+        }
+
         for (var site_name in  data){
             var tr = document.createElement("tr");
 
@@ -274,10 +303,10 @@
             site_village_name =  site_village_name[ site_village_name.length - 1];
             tr.id = site_village_name;
             var prefix = "";
-            if(typeof(sites_by_zones[district][i]['village']) == "undefined") {
-                var prefix = "<span style='color: red'>X</span>";
+            if(villages.indexOf(site_village_name.replace(/\s+/g, '_').toLowerCase()) < 0) {
+                var prefix = "<span style='color: red;'>*</span>";
             }
-            if(connections[site_name.replace(/\s/g, '_').toLowerCase()]){
+            if(connections[site_name.replace(/\s+/g, '_').toLowerCase()]){
 
                 tr.innerHTML = "<td id='site_name'>"  + prefix + site_village_name.replace(/\_+/g, ' ').capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim() + " <span class='circle online'>&nbsp;<span></td> <td id='online_status'>" + data[site_name] + "</td>";
             }else{
