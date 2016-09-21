@@ -165,8 +165,10 @@
         circle.setAttribute("cy", (y - target.y));
 
         var r = 0;
+        var p = 0;
         if(radius[village.replace(/\s+/g, '_').toLowerCase()]) {
             r = radius[village.replace(/\s+/g, '_').toLowerCase()][0];
+            p = radius[village.replace(/\s+/g, '_').toLowerCase()][1]
         }
 
         circle.setAttribute("r", r);
@@ -180,7 +182,7 @@
         circle.setAttribute("title", v.capitalize());
 
         circle.onmouseover = function(){
-           __$("village_label").innerHTML = v.capitalize();
+           __$("village_label").innerHTML = v.capitalize() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + p + " resident(s)";
         };
 
         circle.onmouseout = function(){
