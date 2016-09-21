@@ -17,16 +17,16 @@ class HomeController < ApplicationController
 
   def connection_status
     radius = {}
-    min_radius = 0.25
-    max_radius = 1
+    #min_radius = 0.25
+    #max_radius = 1
 
     data = YAML.load_file "#{Rails.root}/public/sites_data.yml"
 
-    population = []
-    data.each do |site, site_data|
-      population << (site_data["count"] rescue 0)
-    end
-    population = population.compact
+    #population = []
+    #data.each do |site, site_data|
+     # population << (site_data["count"] rescue 0)
+    #end
+    #population = population.compact
     connections = {}
     durations = {}
 
@@ -36,9 +36,9 @@ class HomeController < ApplicationController
       durations["#{site}"] = ((Time.now - site_data["#{params[:prefix]}ping_timestamp"].to_time)/60).round.to_s rescue nil
 
       count = (site_data["count"] rescue 0).to_f
-      mean = (0.5*(max_radius - min_radius) + min_radius).round(2)
-      r = ((population.percentile_rank(count)/100)*(max_radius - min_radius) + min_radius).round(2)
-      radius["#{site}"] = [r, mean]
+      r = Math.sqrt(count)*(1/Math.sqrt(1300))
+      #r = ((population.percentile_rank(count)/100)*(max_radius - min_radius) + min_radius).round(2)
+      radius["#{site}"] = [r]
 
     end
 
@@ -87,20 +87,21 @@ class HomeController < ApplicationController
     deaths = {}
     new_deaths = {}
 
-    population = []
-    data.each do |site, site_data|
-      population << (site_data["count"] rescue 0)
-    end
+    #population = []
+    #data.each do |site, site_data|
+    #  population << (site_data["count"] rescue 0)
+    #end
 
-    min_radius = 0.25
-    max_radius = 1
+    #min_radius = 0.25
+    #max_radius = 1
 
     data.each do |site, site_data|
 
       count = (site_data["count"] rescue 0).to_f
-      mean = (0.5*(max_radius - min_radius) + min_radius).round(2)
-      r = ((population.percentile_rank(count)/100)*(max_radius - min_radius) + min_radius).round(2)
-      radius["#{site}"] = [r, mean]
+      #mean = (0.5*(max_radius - min_radius) + min_radius).round(2)
+      #r = ((population.percentile_rank(count)/100)*(max_radius - min_radius) + min_radius).round(2)
+      r = Math.sqrt(count)*(1/Math.sqrt(1300))
+      radius["#{site}"] = [r]
 
       births["#{site}"] = site_data['births']
       new_births["#{site}"] = site_data['new_births']
