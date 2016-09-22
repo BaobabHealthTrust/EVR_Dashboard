@@ -214,13 +214,16 @@
         circle.setAttribute("cx", (x - target.x));
         circle.setAttribute("cy", (y - target.y));
 
-        var r = 0.12;
+        var r = 0.11;
         var p = 0;
         if(radius[village.replace(/\s+/g, '_').toLowerCase()]) {
             r = radius[village.replace(/\s+/g, '_').toLowerCase()][0];
             p = radius[village.replace(/\s+/g, '_').toLowerCase()][1]
         }
-
+        if(r < 0.11){
+            r = 0.11
+        }
+        
         circle.setAttribute("r", r);
         circle.setAttribute("id", id);
         circle.setAttribute("fill", color);
