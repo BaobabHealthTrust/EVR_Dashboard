@@ -1,6 +1,6 @@
 
   <title>EVR Dashboard</title>
-
+  <script src="data/mtema_boundary.js"></script>
   <script src="data/sites.js"></script>
   <script src="data/district_offsets.js"></script>
   <style>
@@ -164,9 +164,11 @@
         circle.setAttribute("cx", (x - target.x));
         circle.setAttribute("cy", (y - target.y));
 
-        var r = 0;
+        var r = 0.12;
+        var p = 0;
         if(radius[village.replace(/\s+/g, '_').toLowerCase()]) {
             r = radius[village.replace(/\s+/g, '_').toLowerCase()][0];
+            p = radius[village.replace(/\s+/g, '_').toLowerCase()][1]
         }
 
         circle.setAttribute("r", r);
@@ -180,7 +182,7 @@
         circle.setAttribute("title", v.capitalize());
 
         circle.onmouseover = function(){
-           __$("village_label").innerHTML = v.capitalize();
+           __$("village_label").innerHTML = v.capitalize() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + p + " resident(s)";
         };
 
         circle.onmouseout = function(){
@@ -220,6 +222,7 @@
 
                 loadDistrictSitesByOffsets("lilongwe");
                 loadDistrictSitesMarkerByOffsets("lilongwe");
+                drawBoundaries("lilongwe");
                 __$("green").innerHTML = up;
                 __$("red").innerHTML = down;
 
@@ -247,7 +250,7 @@
             var vg = district.toLowerCase().replace(/\s/g, '_') + "__mtema__" +target[i]['village'].replace(/\s/g, '_').toLowerCase();
 
             if (!radius[vg]){
-                continue;
+               // continue;
             }
 
             if(connections[vg]) {
@@ -315,7 +318,7 @@
 
             __$("list").appendChild(tr);
         }
-/*
+
         for (var i in  sites_by_zones[district]){
 
             site_name = sites_by_zones[district][i]['village']
@@ -333,7 +336,27 @@
             tr.innerHTML = "<td id='site_name'>"+  site_village_name.capitalize().replace(/^GVH|^GH|^VH|^VG|^GV|^T\/A/i, "").trim().replace(/\s+/, " ") + " <span class='circle offline'>&nbsp;<span></td> <td id='online_status'>Offline</td>"
             __$("list").appendChild(tr);
         }
-        */
+
+    }
+
+    function drawBoundaries(district){
+        for(var i = 0; i < mtema_coordinates.length; i++){
+            var result = latLon2Coord((mtema_coordinates[i][1]),(mtema_coordinates[i][0]));
+            var x = result[0];
+            var y = result[1];
+            var doc = __$("district").contentDocument;
+            var mw = doc.getElementById(district);
+            var target = districtOffsets[district];
+            var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+
+            circle.setAttribute("cx", (x - target.x));
+            circle.setAttribute("cy", (y - target.y));
+            circle.setAttribute("r", "0.02");
+            circle.setAttribute("fill", "black");
+            circle.setAttribute("stroke-width", 0.0005);
+            circle.setAttribute("stroke", "rgba(0,0,0,0.7)");
+            mw.appendChild(circle);
+        }
     }
 
     setTimeout(function () {

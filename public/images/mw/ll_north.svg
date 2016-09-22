@@ -10,7 +10,7 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="100%"
    height="100%"
-   viewBox="-10 -10 33.875 34.53125"
+   viewBox="-3 -2.5 23.875 21.53125"
    id="lilongwe"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -25,7 +25,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="7.9195959"
-     inkscape:cx="-22.069836"
+     inkscape:cx="-44.293192"
      inkscape:cy="6.8114179"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
@@ -37,7 +37,7 @@
      inkscape:window-width="1535"
      inkscape:window-height="876"
      inkscape:window-x="65"
-     inkscape:window-y="24"
+     inkscape:window-y="140"
      inkscape:window-maximized="1" />
   <svg:metadata
      id="metadata3799">
@@ -72,16 +72,5 @@ function setDimension(w,h) {
 function setScale(sw, sh) {
 	g_element.setAttribute(&quot;transform&quot;, &quot;scale(&quot; + sw + &quot; &quot; + sh +&quot;)&quot;);
 }</svg>
-  <svg:g
-     inkscape:groupmode="layer"
-     id="layer2"
-     inkscape:label="Layer"
-     transform="translate(-28.90625,-26.28125)">
-    <svg:path
-       style="fill:none;stroke:#000000;stroke-width:0.03;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 29.041886,27.21254 0,33.461303 33.587572,0 0,-25.253814 -3.914341,0.631346 -2.77792,-1.894036 L 54.16943,26.833733 53.285547,26.454926 39.017142,30.369267 33.84011,30.242998 29.7995,28.096424 z"
-       id="path2984"
-       inkscape:connector-curvature="0"
-       transform="translate(-10,-10)" />
-  </svg:g>
+
 </svg:svg>

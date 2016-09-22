@@ -38,7 +38,7 @@ class HomeController < ApplicationController
       count = (site_data["count"] rescue 0).to_f
       r = Math.sqrt(count)*(1/Math.sqrt(1300))
       #r = ((population.percentile_rank(count)/100)*(max_radius - min_radius) + min_radius).round(2)
-      radius["#{site}"] = [r]
+      radius["#{site}"] = [r, count]
 
     end
 
@@ -101,7 +101,7 @@ class HomeController < ApplicationController
       #mean = (0.5*(max_radius - min_radius) + min_radius).round(2)
       #r = ((population.percentile_rank(count)/100)*(max_radius - min_radius) + min_radius).round(2)
       r = Math.sqrt(count)*(1/Math.sqrt(1300))
-      radius["#{site}"] = [r]
+      radius["#{site}"] = [r, count]
 
       births["#{site}"] = site_data['births']
       new_births["#{site}"] = site_data['new_births']
