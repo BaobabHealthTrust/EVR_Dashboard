@@ -36,7 +36,7 @@ class HomeController < ApplicationController
       durations["#{site}"] = ((Time.now - site_data["#{params[:prefix]}ping_timestamp"].to_time)/60).round.to_s rescue nil
 
       count = (site_data["count"] rescue 0).to_f
-      r = Math.sqrt(count)*(1/Math.sqrt(2500))
+      r = Math.sqrt(count)*(1/Math.sqrt(3600))
       #r = ((population.percentile_rank(count)/100)*(max_radius - min_radius) + min_radius).round(2)
       radius["#{site}"] = [r, count]
 
@@ -100,7 +100,7 @@ class HomeController < ApplicationController
       count = (site_data["count"] rescue 0).to_f
       #mean = (0.5*(max_radius - min_radius) + min_radius).round(2)
       #r = ((population.percentile_rank(count)/100)*(max_radius - min_radius) + min_radius).round(2)
-      r = Math.sqrt(count)*(1/Math.sqrt(2500))
+      r = Math.sqrt(count)*(1/Math.sqrt(3600))
       radius["#{site}"] = [r, count]
 
       births["#{site}"] = site_data['births']
