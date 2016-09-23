@@ -1,9 +1,7 @@
 
   <title>EVR Dashboard</title>
-  <script src="data/coords.js"></script>
-  <script src="data/districts.js"></script>
+  <script src="data/mtema_boundary.js"></script>
   <script src="data/sites.js"></script>
-  <script src="data/zones.js"></script>
   <script src="data/district_offsets.js"></script>
   <style>
         body {
@@ -264,8 +262,8 @@
         }
         svgimg.setAttribute("visibility", visible_births);
         svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href','pin-blue.svg');
-        svgimg.setAttribute('x',(x - 1.0165*target.x));
-        svgimg.setAttribute('y',(y - 1.0044*target.y));
+        svgimg.setAttribute('x',(x - 1.0115*target.x));
+        svgimg.setAttribute('y',(y - 1.0028*target.y));
         mw.appendChild(svgimg);
 
         var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
@@ -277,8 +275,8 @@
         }
         svgimg.setAttribute("visibility", "hidden");
         svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href','pin-black.svg');
-        svgimg.setAttribute('x',(x - 1.0165*target.x));
-        svgimg.setAttribute('y',(y - 1.0044*target.y));
+        svgimg.setAttribute('x',(x - 1.0115*target.x));
+        svgimg.setAttribute('y',(y - 1.0028*target.y));
         mw.appendChild(svgimg);
     }
 
