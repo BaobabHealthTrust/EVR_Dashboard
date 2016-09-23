@@ -230,8 +230,8 @@
         circle.setAttribute("stroke-width", 0.025);
         circle.setAttribute("stroke", "rgba(0,0,0,0.7)");
         circle.setAttribute("data-tooltip", village);
-        var v = village.split(/\_+/);
-        v = v[v.length -1 ];
+        var v = village.split(/\__/);
+        v = v[v.length -1 ].replace(/\_/, " ");
         circle.setAttribute("title", v.capitalize());
 
         circle.onmouseover = function(){
@@ -321,7 +321,7 @@
                 var pos = 0;
             }
 
-            insertSiteMarkerByOffset(result[0], result[1], colors[pos], district + '_' + target[i]["facility_id"], district, vg, births[vg], deaths[vg]);
+            insertSiteMarkerByOffset((result[0] + 0.4), result[1], colors[pos], district + '_' + target[i]["facility_id"], district, vg, births[vg], deaths[vg]);
 
         }
 
