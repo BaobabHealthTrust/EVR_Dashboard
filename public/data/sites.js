@@ -5,7 +5,7 @@
 var sites_by_zones = {
     "lilongwe": [
         {
-            "village": "Suntche2",
+            "village": "Suntche 2",
             "longitude": 33.669003,
             "latitude": -13.800347,
             "altitude": 1194
@@ -191,7 +191,7 @@ var sites_by_zones = {
             "altitude": 1075
         },
         {
-            "village": "Phereni",
+            "village": "Pheleni",
             "longitude": 33.72591,
             "latitude": -13.88992,
             "altitude": 1102
@@ -209,7 +209,7 @@ var sites_by_zones = {
             "altitude": 1127
         },
         {
-            "village": "Kabyioko",
+            "village": "Kabzyoko",
             "longitude": 33.684063,
             "latitude": -13.893851,
             "altitude": 1117
@@ -221,7 +221,7 @@ var sites_by_zones = {
             "altitude": 1108
         },
         {
-            "village": "Mzumazi",
+            "village": "Nzumazi",
             "longitude": 33.71395,
             "latitude": -13.89821667,
             "altitude": 1109
@@ -233,7 +233,7 @@ var sites_by_zones = {
             "altitude": 1105
         },
         {
-            "village": "Bwalo",
+            "village": "Bwalo 1",
             "longitude": 33.64245,
             "latitude": -13.80913333,
             "altitude": 1175
@@ -257,7 +257,7 @@ var sites_by_zones = {
             "altitude": 1157
         },
         {
-            "village": "Chagamba",
+            "village": "Chagamba 1",
             "longitude": 33.68558333,
             "latitude": -13.89056667,
             "altitude": 1105
@@ -269,7 +269,7 @@ var sites_by_zones = {
             "altitude": 1110
         },
         {
-            "village": "Mphandu",
+            "village": "Mphambu",
             "longitude": 33.66626667,
             "latitude": -13.8337,
             "altitude": 1158
@@ -305,13 +305,13 @@ var sites_by_zones = {
             "altitude": 1201
         },
         {
-            "village": "Nkhuntchi",
+            "village": "Nkhuchi",
             "longitude": 33.63628333,
             "latitude": -13.79395,
             "altitude": 1183
         },
         {
-            "village": "Chithengo",
+            "village": "Kuthengo",
             "longitude": 33.61488333,
             "latitude": -13.81085,
             "altitude": 1167
@@ -329,7 +329,7 @@ var sites_by_zones = {
             "altitude": 1185
         },
         {
-            "village": "Miseu",
+            "village": "Misewu",
             "longitude": 33.63266667,
             "latitude": -13.81565,
             "altitude": 1160
@@ -341,21 +341,178 @@ var sites_by_zones = {
             "altitude": 1160
         },
         {
-            "village": "Chisomba",
+            "village": "Chisompha",
             "longitude": 33.6551,
             "latitude": -13.76473333,
             "altitude": 1221
         },
         {
-            "village": "Chidzele",
+            "village": "Chizele",
             "longitude": 33.65858333,
             "latitude": -13.75843333,
             "altitude": 1227
         },
         {
-            "village": "Nchezime",
+            "village": "Mchazime",
+            "longitude": 33.65838333,
+            "latitude": -13.75520000,
+            "altitude": 0
+        },
+        {
+            "village": "Biwi",
             "longitude": 33.65786667,
             "latitude": -13.75405,
+            "altitude": 1231
+        },
+        {
+            "village": "Mdzoole",
+            "longitude": 33.59983333,
+            "latitude": -13.71986667,
+            "altitude": 1210
+        },
+        {
+            "village": "Kaning’a",
+            "longitude": 33.60825000,
+            "latitude": -13.72916667,
+            "altitude": 1210
+        },
+
+        {
+            "village": "Nzumazi",
+            "longitude": 33.71395000,
+            "latitude": -13.89821667,
+            "altitude": 1109
+        },
+        {
+            "village": "Mbulachina",
+            "longitude": 33.62063333,
+            "latitude": -13.76453333,
+            "altitude": 1222
+        },
+        {
+            "village": "Bwalo 2",
+            "longitude": 33.61156667,
+            "latitude": -13.77363333,
+            "altitude": 1206
+        },
+        {
+            "village": "Mgwadula",
+            "longitude": 33.63314,
+            "latitude": -13.74297,
+            "altitude": 1239.5
+        },
+        {
+            "village": "Nzumazi 1",
+            "longitude": 33.709282,
+            "latitude": -13.891945,
+            "altitude": 1104.5
+        },
+        {
+            "village": "Mkupeta",
+            "longitude": 33.62219,
+            "latitude": -13.766298,
+            "altitude": 1187.4
+        },
+        {
+            "village": "Mchena",
+            "longitude": 33.622158,
+            "latitude": -13.788676,
+            "altitude": 1202.1
+        },
+        {
+            "village": "Chikolokoto",
+            "longitude": 33.670464,
+            "latitude": -13.835915,
+            "altitude": 1158.2
+        },
+        {
+            "village": "Ndalama",
+            "longitude": 33.6424,
+            "latitude": -13.804038,
+            "altitude": 1169.1
+        },
+        {
+            "village": "Chiyenda Nchiwanda",
+            "longitude": 33.676476,
+            "latitude": -13.803985,
+            "altitude": 1169.1
+        },
+        {
+            "village": "Kabwabwa",
+            "longitude": 33.68024,
+            "latitude": -13.8085165,
+            "altitude": 1156.7
+        },
+        {
+            "village": "Nkhanamba",
+            "longitude": 33.632874,
+            "latitude": -13.715959,
+            "altitude": 1236.2
+        },
+        {
+            "village": "Mbewa",
+            "longitude": 33.618595,
+            "latitude": -13.716619,
+            "altitude": 1212.7
+        },
+        {
+            "village": "Nchazime",
+            "longitude": 33.65786667,
+            "latitude": -13.75405000,
+            "altitude": 1232
+        },
+        {
+            "village": "Mbalani",
+            "longitude":  33.67166,
+            "latitude": -13.81133,
+            "altitude": 0
+        },
+        {
+            "village": "Konkha",
+            "longitude":  33.62332,
+            "latitude": -13.82451,
+            "altitude": 0
+        },
+        {
+            "village": "Nkhonkha",
+            "longitude":  33.62332,
+            "latitude": -13.82451,
+            "altitude": 0
+        },
+        {
+            "village": "Kholongo",
+            "longitude":  33.68179,
+            "latitude": -13.82909,
+            "altitude": 0
+        },
+        {
+            "village": "Kambulire 1",
+            "longitude": 33.64162,
+            "latitude": -13.80278,
+            "altitude": 0
+        },
+        {
+            "village": "Kambulire 2",
+            "longitude": 33.63921,
+            "latitude": -13.81564,
+            "altitude": 0
+        },
+        {
+            "village": "Mfuti",
+            "longitude": 33.68248,
+            "latitude": -13.82003,
+            "altitude": 0
+        },
+        {
+            "village": "Dongolosi",
+            "longitude": 33.68465,
+            "latitude": -13.82188,
+            "altitude": 0
+        },
+        {
+            "village": "Chaonya",
+            "longitude": 33.63538,
+            "latitude": -13.80924,
             "altitude": 0
         }
     ]
