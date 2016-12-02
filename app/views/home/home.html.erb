@@ -1,25 +1,25 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title>EVR Dashboard</title>
-  <style>
-    #iframe{
-        width: 99%;
-        margin: 0px;;
-        border: 1px solid lightgray;
-        padding: 0px;
-    }
+    <title>EVR Dashboard</title>
+    <style>
+        #iframe{
+            width: 99%;
+            margin: 0px;;
+            border: 1px solid lightgray;
+            padding: 0px;
+        }
 
-  body{
-      padding: 0px;
-      margin: 0px;
-  }
+        body{
+            padding: 0px;
+            margin: 0px;
+        }
 
-          #leg{
-              top: 90px;
-          }
+        #leg{
+            top: 90px;
+        }
 
-  </style>
+    </style>
 </head>
 <body>
 
@@ -31,55 +31,55 @@
 
 <script>
 
-  function __$(id){
-      return document.getElementById(id);
-  }
+	function __$(id){
+		return document.getElementById(id);
+	}
 
 	index = -1;
 
-  function rotate(){
+	function rotate(){
 
-          if (dashboard[index + 1]){
-              	index += 1;
-          }else{
-              	index = 0;
-          }
+		if (dashboard[index + 1]){
+			index += 1;
+		}else{
+			index = 0;
+		}
 
-          values = dashboard[index];
+		values = dashboard[index];
 
-          $("#iframe").load(dashboard[index]['src']);
- 	}
+		$("#iframe").load(dashboard[index]['src']);
+	}
 
- setTimeout(function(){
-     __$("iframe").style.height = (window.innerHeight * 0.97) + "px";
-     if(__$("holder")) {
-         __$("holder").style.height = (window.innerHeight * 0.78) + "px";
+	setTimeout(function(){
+		__$("iframe").style.height = (window.innerHeight * 0.97) + "px";
+		if(__$("holder")) {
+			__$("holder").style.height = (window.innerHeight * 0.78) + "px";
 
-     }
- }, 50);
+		}
+	}, 50);
 
-  setTimeout(function(){
-      __$("iframe").style.height = (window.innerHeight * 0.97) + "px";
-      if(__$("holder")) {
-          __$("holder").style.height = (window.innerHeight * 0.78) + "px";
-      }
-  }, 250);
+	setTimeout(function(){
+		__$("iframe").style.height = (window.innerHeight * 0.97) + "px";
+		if(__$("holder")) {
+			__$("holder").style.height = (window.innerHeight * 0.78) + "px";
+		}
+	}, 250);
 
-  setTimeout(function(){
-      __$("iframe").style.height = (window.innerHeight * 0.97) + "px";
-      if(__$("holder")) {
-          __$("holder").style.height = (window.innerHeight * 0.78) + "px";
-      }
-  }, 500);
+	setTimeout(function(){
+		__$("iframe").style.height = (window.innerHeight * 0.97) + "px";
+		if(__$("holder")) {
+			__$("holder").style.height = (window.innerHeight * 0.78) + "px";
+		}
+	}, 500);
 
-setTimeout(function(){
-  rotate();
+	setTimeout(function(){
+		rotate();
 
-  var loadInterval = setInterval(function(){
-      window.clearInterval(scrollInterval);
-      rotate();
-  }, 20000);
-}, 200);
+		var loadInterval = setInterval(function(){
+			window.clearInterval(scrollInterval);
+			rotate();
+		}, 20000);
+	}, 200);
 
 
 </script>

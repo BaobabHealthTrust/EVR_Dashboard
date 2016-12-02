@@ -1,95 +1,98 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>EVRDashboard</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+    <title>EVRDashboard</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
 
-  <script>
-      var scrollInterval;
-      var toggleInterval;
+    <script>
+		var scrollInterval;
+		var toggleInterval;
 
-      var scrolling = true;
+		var scrolling = true;
 
-      var height;
+		var height;
 
-      var yJump = 0.0015*window.innerHeight;
+		var yJump = 0.0015*window.innerHeight;
 
-      var scrollDelay = 5;
+		var scrollDelay = 5;
 
-      var values = {};
+		var values = {};
 
 
-      function pageScroll(node) {
+		function pageScroll(node) {
 
-          var pause = false;
+			var pause = false;
 
-          height = node.scrollTop;
+			height = node.scrollTop;
 
-          //Scroll
-          node.scrollTop += yJump;
+			//Scroll
+			node.scrollTop += yJump;
 
-          if (height == node.scrollTop){
+			if (height == node.scrollTop){
 
-              scrollDelay = 5000;
+				scrollDelay = 5000;
 
-              if(height != 0){
-                  if (yJump > 0){
-                      pause = true
-                  }
-                  yJump = -0.0015*window.innerHeight;
+				if(height != 0){
+					if (yJump > 0){
+						pause = true
+					}
+					yJump = -0.0015*window.innerHeight;
 
-              }else{
-                  if (yJump < 0){
-                      pause = true
-                  }
-                  yJump = 0.0015*window.innerHeight;
-              }
-          }else{
+				}else{
+					if (yJump < 0){
+						pause = true
+					}
+					yJump = 0.0015*window.innerHeight;
+				}
+			}else{
 
-              scrollDelay = 10;
+				scrollDelay = 10;
 
-          }
+			}
 
-          if (pause){
-              window.clearInterval(scrollInterval);
+			if (pause){
+				window.clearInterval(scrollInterval);
 
-              setTimeout(function(){
-                  scrollInterval = window.setInterval(function () {
-                      pageScroll(node);
-                  }, 5);
-              }, 5000);
-          }
-      }
+				setTimeout(function(){
+					scrollInterval = window.setInterval(function () {
+						pageScroll(node);
+					}, 5);
+				}, 5000);
+			}
+		}
 
 		dashboard = [
+			{
+				'title' : 'NagMap',
+				'src' : '/home/nagmap_dashboard'
+			},
+			{
+				'title' : 'Site Connection Status',
+				'src' : '/home/connection_dashboard',
+				'legend' : {
+					'red' : 'Down',
+					'green' : 'Up'
+				}
+			},
+			{
+				'title' : 'News Reading Status',
+				'src' : '/home/news_dashboard',
+				'legend' : {
+					'green' : 'Read in 48 hrs',
+					'yellow' : 'Not read in 48 hrs',
+					'red' : 'Not read in 3 days'
+				}
+			},
+			{
+				'title' : 'Population By Village',
+				'src' : '/home/population'
+			}
 
-                {
-                    'title' : 'Site Connection Status',
-                    'src' : '/home/connection_dashboard',
-                    'legend' : {
-                        'red' : 'Down',
-                        'green' : 'Up'
-                    }
-                },
-                {
-                    'title' : 'News Reading Status',
-                    'src' : '/home/news_dashboard',
-                    'legend' : {
-                        'green' : 'Read in 48 hrs',
-                        'yellow' : 'Not read in 48 hrs',
-                        'red' : 'Not read in 3 days'
-                    }
-                },
-                {
-                    'title' : 'Population By Village',
-                    'src' : '/home/population'
-                }
+		];
 
-			];
-
-  </script>
+    </script>
 </head>
 <body>
 

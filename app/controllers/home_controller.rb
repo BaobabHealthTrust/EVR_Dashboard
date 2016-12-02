@@ -7,6 +7,10 @@ class HomeController < ApplicationController
     render :layout => false
   end
 
+  def nagmap_dashboard
+	render :layout => false
+  end
+
   def new_births
 
   end
