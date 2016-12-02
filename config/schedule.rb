@@ -13,7 +13,7 @@
 #   rake "some:great:rake:task"
 # end
 #
- every 1.minute do
+ every 30.minute do
    rake "dashboard:pull_data"
  end
 

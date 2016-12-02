@@ -6,7 +6,7 @@ namespace :dashboard do
     FileUtils.touch("#{Rails.root}/public/sites_data.yml")
 
     ip = (YAML.load_file "#{Rails.root}/config/application.yml")["#{Rails.env}"]["evr_server"]
-    interval = 60 #(YAML.load_file "#{Rails.root}/config/application.yml")["#{Rails.env}"]["pull_interval_minutes"]
+    interval = (YAML.load_file "#{Rails.root}/config/application.yml")["#{Rails.env}"]["pull_interval_minutes"]
     interval = interval.to_i * 60
     result = YAML.load_file("#{Rails.root}/public/sites_data.yml") || {}
     result.each do |site, data|
