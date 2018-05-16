@@ -82,6 +82,7 @@ class HomeController < ApplicationController
   end
 
  def connection_lastseennews_status
+
     radius = {}
 
     data = YAML.load_file "#{Rails.root}/public/sites_data.yml"

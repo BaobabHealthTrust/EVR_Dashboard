@@ -15,6 +15,7 @@
 #
  every 30.minute do
    rake "dashboard:pull_data"
+   #command 'rsync -a public/sites_data.yml software:@71.19.156.178:/var/www/EVR_Dashboard/public/'
  end
 
 # Learn more: http://github.com/javan/whenever
