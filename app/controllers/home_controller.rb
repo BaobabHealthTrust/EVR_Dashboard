@@ -72,7 +72,7 @@ class HomeController < ApplicationController
       elsif min_diff > 0
         last_seen = "#{min_diff} min ago"
       else
-        last_seen = "#{sec_diff} sec ago"
+        last_seen = "#{sec_diff.abs} sec ago"
       end
 
       connections["#{site}"] = last_seen
